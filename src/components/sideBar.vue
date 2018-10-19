@@ -1,19 +1,16 @@
 <template>
  <div>
-   this is Index
+    this is sideBar
  </div>
 </template>
 
 <script>
 export default {
-  name: 'Index',
+  name: 'sideBar',
   data () {
     return {
 
     }
-  },
-  methods: {
-
   }
 }
 </script>

@@ -1,19 +1,16 @@
 <template>
  <div>
-   this is Index
+    this is index Other
  </div>
 </template>
 
 <script>
 export default {
-  name: 'Index',
+  name: '',
   data () {
     return {
 
     }
-  },
-  methods: {
-
   }
 }
 </script>
