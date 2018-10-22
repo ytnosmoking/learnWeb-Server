@@ -9,33 +9,53 @@ const _importView = file => () => import('@/views/' + file)
 const _importCom = component => () => import('@/components/' + component)
 
 export const defaultRouter = [
+
   {
     path: '/',
     redirect: '/index'
   },
   {
     path: '/index',
-    name: 'Index',
+    name: '首页',
     component: _importCom('layOut'),
     redirect: '/index/all',
     children: [{
-      name: 'all',
-      path: 'all',
-      component: _importView('Index')
+      name: '所有',
+      path: '/index/all',
+      component: _importView('Index/all')
     }, {
-      name: 'other',
-      path: 'other',
-      component: _importView('Other')
+      name: '其他',
+      path: '/index/other',
+      component: _importView('Index/other')
     }]
   }, {
     path: '/bike',
-    name: 'Bike',
+    name: '单车',
     component: _importCom('layOut'),
     redirect: '/bike/index',
     children: [{
-      name: 'index',
-      path: 'index',
-      component: _importView('Bike')
+      name: '首页',
+      path: '/bike/index',
+      component: _importView('Bike/index')
+    }, {
+      name: '产品',
+      path: '/bike/product',
+      component: _importView('Bike/product')
+    }]
+  },
+  {
+    path: '/movie',
+    name: '电影',
+    component: _importCom('layOut'),
+    redirect: '/movie/index',
+    children: [{
+      name: '大杂烩',
+      path: '/movie/index',
+      component: _importView('Movie/index')
+    }, {
+      name: 'top',
+      path: '/movie/top',
+      component: _importView('Movie/top100')
     }]
   },
   {

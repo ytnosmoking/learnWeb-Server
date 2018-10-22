@@ -1,32 +1,23 @@
 <template>
-  <ul class="fl">
-    <router-link v-for="router in navRouter"
+  <ul class="fl ">
+    <router-link v-for="router in getSonRoutes"
       :key="router.name" class="navLi"
-      :to='{"name":router.name }' tag="li">{{router.name}}</router-link>
+      :to='{"path":router.path }' tag="li">{{router.name}}</router-link>
   </ul>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'NavHead',
+  computed: {
+    ...mapGetters([
+      'getSonRoutes'
+    ])
+  },
   data () {
     return {
-      navRouter: [{
-        name: 'all',
-        path: 'all'
-      }, {
-        name: 'other',
-        path: 'other'
-      }, {
-        name: 'two',
-        path: 'two'
-      }, {
-        name: 'all',
-        path: 'all'
-      }, {
-        name: 'other',
-        path: 'other'
-      } ]
+
     }
   }
 }
@@ -37,9 +28,17 @@ ul,li {
   height: 100%;
   box-sizing: border-box;
 }
+ul {
+  // max-width: 300%;
+  min-width: 100%;
+  max-width: 300%;
+  text-align: left;
+  white-space: nowrap;
+}
   .navLi {
     display: inline-block;
     width: 50px;
+    text-align: center;
     cursor: pointer;
 
     position: relative;

@@ -6,23 +6,32 @@
     <el-container>
       <el-header>
         <div class="commonHead">
-          <el-button type="primary"
-            :icon="closeBar?'el-icon-arrow-right':'el-icon-arrow-left'"
-            :circle=btnShape
-            :round=!btnShape
-            style="transition:all .3s ease"
-            @click="closeSideBar"
-            class="fl mt10">
-            </el-button>
+          <el-button type="primary" :icon="closeBar?'el-icon-arrow-right':'el-icon-arrow-left'" :circle=btnShape :round=!btnShape style="transition:all .3s ease" @click="closeSideBar" class="fl mt10">
+          </el-button>
+          <div class="navHead">
             <nav-head></nav-head>
-            <el-button icon="el-icon-info"
-              type="info" round
-              class="fr mt10">信息按钮</el-button>
-
+          </div>
+          <el-row class="block-col-2 fr">
+            <el-col>
+              <el-dropdown @command="userSet">
+                <span class="el-dropdown-link">
+                  设置
+                  <!-- <i class="el-icon-arrow-down el-icon--right"></i> -->
+                  <i class="el-icon-setting el-icon--right"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item command="a">退出</el-dropdown-item>
+                  <el-dropdown-item command="b">狮子头</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </el-col>
+          </el-row>
         </div>
       </el-header>
-      <el-main>Main
-        <router-view></router-view>
+      <el-main>
+        <transition mode="out-in" enter-active-class="animated fadeInLeft" leave-active-class="animated fadeOutRight" class="" >
+          <router-view ></router-view>
+        </transition>
       </el-main>
     </el-container>
   </el-container>
@@ -32,7 +41,7 @@
 import sideBar from './sideBar'
 import navHead from './NavHead'
 export default {
-  name: 'Index',
+  name: 'LayOut',
   components: {
     sideBar,
     navHead
@@ -46,16 +55,22 @@ export default {
   methods: {
     closeSideBar () {
       this.closeBar = !this.closeBar
+      this.$store.commit('changeSidebar', this.closeBar)
     },
     showBtnShape (boolean) {
       this.btnShape = boolean
+    },
+    userSet (command) {
+      if (command === 'a') {
+        console.log(command)
+        console.log(1111)
+      }
     }
   }
 }
 </script>
 
 <style lang='less' scoped>
-
 .el-aside {
   transition: all 0.3s ease;
 }
@@ -74,6 +89,10 @@ export default {
   color: #333;
   text-align: center;
   line-height: 200px;
+  background-color: #545c64;
+  &::-webkit-scrollbar {
+    display: block;
+  }
 }
 
 .el-main {
@@ -92,4 +111,17 @@ export default {
   // justify-content: flex-start;
   // align-items: center;
 }
+.navHead {
+  display: inline-block;
+  width: calc(100% - 100px);
+  height: 100%;
+  overflow: hidden;
+  overflow-x: auto;
+  position: relative;
+  box-sizing: border-box;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 </style>
