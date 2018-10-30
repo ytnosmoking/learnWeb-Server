@@ -15,37 +15,59 @@ import 'normalize.css'
 //  common css
 import './public/css/common.less'
 
+// v-lazy
+import VueLazyLoad from 'vue-lazyload'
+
+import './Mock' // mock数据
+
+import {getToken} from '@/utils/tools'
+Vue.use(VueLazyLoad, {
+  error: '/static/lazy/loading-spinning-bubbles.svg',
+  loading: '/static/lazy/loading-bars.svg'
+
+})
+
 NProgress.configure({
   showSpinner: false
 })
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  console.log(to.path)
-  console.log(store.getters.getFatherRoutes)
-  store.getters.getFatherRoutes.forEach(routes => {
-    if (routes.redirect === to.path) {
-      store.state.sonRoutes = routes.children
+  console.log(getToken())
+  if (getToken()) {
+    console.log(to.path)
+    console.log(store.getters.getFatherRoutes)
+    store.getters.getFatherRoutes.forEach(routes => {
+      if (routes.redirect === to.path) {
+        store.state.sonRoutes = routes.children
+      } else {
+        let flag = false
+        routes.children.forEach(item => {
+          if (item.path === to.path) {
+            flag = true
+          }
+        })
+        if (flag) store.state.sonRoutes = routes.children
+      }
+    })
+    // console.log(store.state.sonRoutes)
+    // if (store.state.sonRoutes.length === 0) {
+    //   const fatherRoute = store.state.getters.getFatherRoutes
+    //   fatherRoute.fileter(router => {
+    //     return router.children.forEach(item => {
+    //       return item.path === to.path
+    //     })
+    //   })
+    //   console.log(fatherRoute)
+    // }
+    next()
+  } else {
+    if (to.path === '/login') {
+      next()
     } else {
-      let flag = false
-      routes.children.forEach(item => {
-        if (item.path === to.path) {
-          flag = true
-        }
-      })
-      if (flag) store.state.sonRoutes = routes.children
+      next('/login')
     }
-  })
-  // console.log(store.state.sonRoutes)
-  // if (store.state.sonRoutes.length === 0) {
-  //   const fatherRoute = store.state.getters.getFatherRoutes
-  //   fatherRoute.fileter(router => {
-  //     return router.children.forEach(item => {
-  //       return item.path === to.path
-  //     })
-  //   })
-  //   console.log(fatherRoute)
-  // }
-  next()
+    NProgress.done()
+  }
 })
 router.afterEach(() => {
   NProgress.done()

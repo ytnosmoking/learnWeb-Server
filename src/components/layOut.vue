@@ -20,24 +20,28 @@
                   <i class="el-icon-setting el-icon--right"></i>
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="a">退出</el-dropdown-item>
-                  <el-dropdown-item command="b">狮子头</el-dropdown-item>
+                  <el-dropdown-item command="out">退出</el-dropdown-item>
+                  <!-- <el-dropdown-item command="in">登录</el-dropdown-item> -->
                 </el-dropdown-menu>
               </el-dropdown>
             </el-col>
           </el-row>
         </div>
       </el-header>
-      <el-main>
+      <!-- <el-main> -->
+        <div class="main">
+
         <transition mode="out-in" enter-active-class="animated fadeInLeft" leave-active-class="animated fadeOutRight" class="" >
           <router-view ></router-view>
         </transition>
-      </el-main>
+        </div>
+      <!-- </el-main> -->
     </el-container>
   </el-container>
 </template>
 
 <script>
+import {removeToken} from '@/utils/tools'
 import sideBar from './sideBar'
 import navHead from './NavHead'
 export default {
@@ -61,9 +65,13 @@ export default {
       this.btnShape = boolean
     },
     userSet (command) {
-      if (command === 'a') {
-        console.log(command)
-        console.log(1111)
+      console.log(command)
+      if (command === 'out') {
+        this.$store.dispatch('logout').then(res => {
+          console.log(res)
+          removeToken()
+          location.reload()
+        })
       }
     }
   }
@@ -95,11 +103,16 @@ export default {
   }
 }
 
-.el-main {
+.main {
+  height: calc(100% - 60px);
   background-color: #e9eef3;
   color: #333;
   text-align: center;
-  line-height: 160px;
+  padding: 20px;
+  box-sizing: border-box;
+   &::-webkit-scrollbar {
+    display: none;
+  }
 }
 .commonView {
   height: 100%;

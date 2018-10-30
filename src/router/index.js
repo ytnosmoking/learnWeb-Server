@@ -15,6 +15,11 @@ export const defaultRouter = [
     redirect: '/index'
   },
   {
+    path: '/login',
+    name: '登陆',
+    component: _importView('Login/index')
+  },
+  {
     path: '/index',
     name: '首页',
     component: _importCom('layOut'),
@@ -41,20 +46,24 @@ export const defaultRouter = [
       name: '产品',
       path: '/bike/product',
       component: _importView('Bike/product')
+    }, {
+      name: '详细信息',
+      path: '/bike/:id',
+      component: _importView('Bike/detail')
     }]
   },
   {
-    path: '/movie',
+    path: '/films',
     name: '电影',
     component: _importCom('layOut'),
-    redirect: '/movie/index',
+    redirect: '/films/index',
     children: [{
-      name: '大杂烩',
-      path: '/movie/index',
+      name: '上映',
+      path: '/films/index',
       component: _importView('Movie/index')
     }, {
-      name: 'top',
-      path: '/movie/top',
+      name: 'top100',
+      path: '/films/top100',
       component: _importView('Movie/top100')
     }]
   },

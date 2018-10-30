@@ -1,7 +1,10 @@
 <template>
- <div>
-    this is product
- </div>
+  <div class="product">
+    <router-link v-for="(img , index) in lists" :key="index" :to="{'name': '详细信息', params:{id: index}}">
+      <img v-lazy="img.img">
+    </router-link>
+
+  </div>
 </template>
 
 <script>
@@ -9,12 +12,36 @@ export default {
   name: 'BikeProduct',
   data () {
     return {
-
+      lists: []
     }
+  },
+  methods: {
+    getBikeProducts () {
+      this.$store.dispatch('getBikeProducts')
+        .then(res => {
+          console.log(res)
+          this.lists = res
+        })
+    }
+  },
+  mounted () {
+    this.getBikeProducts()
   }
 }
 </script>
 
 <style lang='less' scoped>
-
+  .product {
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    text-align: left;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    img {
+      width: 240px;
+      height: 400px;
+    }
+  }
 </style>

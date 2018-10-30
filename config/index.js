@@ -27,10 +27,17 @@ module.exports = {
         }
       },
       '/hot': {
-        target: 'http://apiv2.vmovier.com/api/',
+        target: 'http://apiv2.vmovier.com/api',
         changeOrigin: true,
         pathRewrite: {
           '^/hot': ''
+        }
+      },
+       '/weather': {
+        target: 'https://api.avatardata.cn/Weather',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/weather': ''
         }
       },
     },
