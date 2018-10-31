@@ -1,7 +1,7 @@
 
 import Mock from 'mockjs'
+import {config2Obj} from '@/utils'
 const Random = Mock.Random
-
 export default {
   total () {
     const count = 20
@@ -42,9 +42,27 @@ export default {
     const lists = []
     for (let i = 0; i < count; i++) {
       lists.push({
-        img: Random.image('240x400', Random.color(), Random.color(), '.gif', i + 1)
+        img: Random.image('240x400', Random.color(), Random.color(), '.gif', i),
+        id: Random.natural()
       })
     }
     return lists
+  },
+  productsDetail (config) {
+    console.log(config.body)
+    const product = config2Obj(config.body)
+    const imgs = []
+    const count = Math.ceil(Math.random() * 5)
+    // const count = 10
+    for (let i = 0; i < count; i++) {
+      imgs.push(Random.image('720x300', Random.color(), Random.color(), '.gif', i + 1))
+    }
+    const detail = Mock.mock({
+      'detail': Random.cparagraph(10),
+      'name': Random.sentence(3),
+      'imgs': imgs,
+      'id': product.productId
+    })
+    return detail
   }
 }

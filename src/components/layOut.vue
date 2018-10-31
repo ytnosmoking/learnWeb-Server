@@ -110,6 +110,8 @@ export default {
   text-align: center;
   padding: 20px;
   box-sizing: border-box;
+  overflow: hidden;
+    overflow-y: auto;
    &::-webkit-scrollbar {
     display: none;
   }

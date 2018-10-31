@@ -30,3 +30,23 @@ html {overflow-y: scroll;}
     height: 0;
   }
 }
+.clearBefore {
+  &:before {
+    content: " ";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+  }
+}
+.clearAfter {
+  &:after {
+    content: " ";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+  }
+}

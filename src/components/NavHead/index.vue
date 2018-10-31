@@ -37,7 +37,7 @@ ul {
 }
   .navLi {
     display: inline-block;
-    width: 50px;
+    // width: 50px;
     text-align: center;
     cursor: pointer;
 
@@ -58,6 +58,10 @@ ul {
       margin-left: 20px;
     }
     &:hover::before,&.router-link-exact-active::before {
+      width: 100%;
+      left: 0;
+    }
+    &.router-link-active::before {
       width: 100%;
       left: 0;
     }

@@ -1,18 +1,26 @@
 <template>
  <div>
-   this is Index-All
+   <h3> {{data.msg}}</h3>
+
  </div>
 </template>
 
 <script>
+
 export default {
   name: 'Index-All',
   data () {
     return {
-
+      data: {
+        name: 'index',
+        msg: ' first workstation'
+      }
     }
   },
   methods: {
+
+  },
+  mounted () {
 
   }
 }

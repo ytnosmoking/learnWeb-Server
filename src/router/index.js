@@ -39,7 +39,7 @@ export const defaultRouter = [
     component: _importCom('layOut'),
     redirect: '/bike/index',
     children: [{
-      name: '首页',
+      name: '单车首页',
       path: '/bike/index',
       component: _importView('Bike/index')
     }, {
@@ -48,7 +48,7 @@ export const defaultRouter = [
       component: _importView('Bike/product')
     }, {
       name: '详细信息',
-      path: '/bike/:id',
+      path: '/bike/detail',
       component: _importView('Bike/detail')
     }]
   },
@@ -65,6 +65,17 @@ export const defaultRouter = [
       name: 'top100',
       path: '/films/top100',
       component: _importView('Movie/top100')
+    }]
+  },
+  {
+    path: '/shape',
+    name: '图形',
+    component: _importCom('layOut'),
+    redirect: '/shape/index',
+    children: [{
+      name: '各种图形',
+      path: '/shape/index',
+      component: _importView('Shape/index')
     }]
   },
   {

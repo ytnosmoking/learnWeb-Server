@@ -37,6 +37,7 @@ router.beforeEach((to, from, next) => {
     console.log(to.path)
     console.log(store.getters.getFatherRoutes)
     store.getters.getFatherRoutes.forEach(routes => {
+      console.log(routes)
       if (routes.redirect === to.path) {
         store.state.sonRoutes = routes.children
       } else {
@@ -46,7 +47,9 @@ router.beforeEach((to, from, next) => {
             flag = true
           }
         })
-        if (flag) store.state.sonRoutes = routes.children
+        if (flag) {
+          store.state.sonRoutes = routes.children
+        }
       }
     })
     // console.log(store.state.sonRoutes)

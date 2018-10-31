@@ -67,6 +67,14 @@ const store = new Vuex.Store({
           .catch(err => reject(err))
       })
     },
+    getProductDetail (context, payload) {
+      console.log(payload)
+      return new Promise((resolve, reject) => {
+        sendAjax('/bike/detail', {...payload})
+          .then(res => resolve(res))
+          .catch(err => reject(err))
+      })
+    },
     getTotalMovie (context, payload) {
       return new Promise((resolve, reject) => {
         // const url = '/book/1220562'
@@ -86,8 +94,14 @@ const store = new Vuex.Store({
           console.log(err)
         })
       })
+    },
+    getShapeData () {
+      return new Promise((resolve, reject) => {
+        sendAjax('/shape/all')
+          .then(res => resolve(res))
+          .catch(err => reject(err))
+      })
     }
   }
-
 })
 export default store

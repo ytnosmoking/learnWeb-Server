@@ -1,6 +1,7 @@
 <template>
   <div class="product">
-    <router-link v-for="(img , index) in lists" :key="index" :to="{'name': '详细信息', params:{id: index}}">
+    <router-link v-for="(img , index) in lists" :key="index"
+      :to="{'name': '详细信息', query:{productId: img.id}}">
       <img v-lazy="img.img">
     </router-link>
 
@@ -19,7 +20,6 @@ export default {
     getBikeProducts () {
       this.$store.dispatch('getBikeProducts')
         .then(res => {
-          console.log(res)
           this.lists = res
         })
     }
