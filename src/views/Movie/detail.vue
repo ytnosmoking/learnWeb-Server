@@ -3,7 +3,41 @@
     <img v-lazy="detail.images.large" class="fl detail_img">
     <h3>{{detail.original_title}}</h3>
     <h5>译名：<span v-for="name in detail.aka" :key="name">{{name}}&nbsp;</span></h5>
-
+    <div>导演：
+      <span v-for="director in detail.directors" :key="director.id">
+        {{director.name}}
+      </span>
+    </div>
+    <div>主演：
+      <span v-for="cast in detail.casts" :key="cast.id">
+        {{cast.name}}
+      </span>
+    </div>
+    <div>类型：
+      <span v-for="genre in detail.genres" :key="genre">
+        {{genre}}
+      </span>
+    </div>
+    <div>制片国家/地区:
+      <span v-for="country in detail.countries" :key="country">
+        {{country}}
+      </span>
+    </div>
+    <div class="clearfix" style="margin-top:10px;">
+      <h3>{{detail.title}}剧情简介...</h3>
+      <p>{{detail.summary}}</p>
+    </div>
+    <div>
+      <h3>{{detail.title}}的演职员...（全部）</h3>
+      <ul class="castUl">
+        <li  v-for="cast in detail.casts" :key="cast.id" class="fl casts">
+          <img v-lazy="getImgUrl(cast.avatars.small)">
+          <!-- <img :src="cast.avatars.small"> -->
+          <br>
+          {{cast.name}}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -13,15 +47,45 @@ export default {
   data () {
     return {
       detail: {
-        original_title: '',
         images: {}
       }
     }
   },
   methods: {
-    goBack (query) {
-      return new Promise((resolve, reject) => {
+    getFilmDetail (movieId) {
+      console.log(movieId)
+      return this.$store.dispatch('getFilmDetail', movieId)
+    },
+    getImgUrl (url) {
+      return url.replace(/https:\/\//g, 'https://images.weserv.nl/?url=')
+    }
+  },
+
+  mounted () {
+    const query = this.$route.query
+    if (JSON.stringify(query) === '{}') {
+      // this.$message('请选择产品...')
+      this.$message({
+        message: '请选择电影...',
+        type: 'warning'
+      })
+      this.$router.go(-1)
+    } else {
+      alert(JSON.stringify(query))
+      this.getFilmDetail(query).then(res => {
+        console.log(res)
+        this.detail = res
+      })
+    }
+  },
+  watch: {
+    $route (to, from) {
+      let query = to.query
+      if (from.query && JSON.stringify(query) === '{}') {
         console.log(query)
+        query = from.query
+        this.$router.replace({ name: '电影详情', query })
+      } else {
         if (JSON.stringify(query) === '{}') {
           // this.$message('请选择产品...')
           this.$message({
@@ -30,29 +94,12 @@ export default {
           })
           this.$router.go(-1)
         } else {
-          resolve()
+          this.getFilmDetail(query).then(res => {
+            console.log(res)
+            this.detail = res
+          })
         }
-      })
-    },
-    getFilmDetail (movieId) {
-      console.log(movieId)
-      return this.$store.dispatch('getFilmDetail', movieId)
-    }
-  },
-  mounted () {
-    const movieId = this.$route.query
-    this.goBack(movieId).then(() => {
-      this.getFilmDetail(movieId).then(res => {
-        console.log(res)
-        this.detail = res
-      })
-    })
-  },
-  watch: {
-    $route (to, from) {
-      console.log(to.query)
-      const movieId = to.query
-      this.goBack(movieId)
+      }
     }
   }
 }
@@ -60,24 +107,37 @@ export default {
 
 <style lang='less' scoped>
 .detail {
-.detail_img {
-  width: 270px;
-  height: 400px;
-}
+  text-align: left;
+  .detail_img {
+    width: 270px;
+    height: 400px;
+    margin-right: 10px;
+  }
   .imgCont {
     width: 50%;
     height: 300px;
   }
 
   p {
-    padding-left: 52%;
     text-indent: 2em;
-    text-align: left;
-    height: 300px;
+    line-height: 1.5em;
   }
   h3 {
     font-size: 20px;
     font-weight: bold;
+  }
+
+  .castUl {
+    .casts {
+      &:first-child {
+        margin-left: 0;
+      }
+      margin-left: 21px;
+      text-align: center;
+      img {
+        height: 133px;
+      }
+    }
   }
 }
 </style>

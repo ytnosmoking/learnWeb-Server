@@ -20,9 +20,11 @@ import VueLazyLoad from 'vue-lazyload'
 
 import './Mock' // mock数据
 
-import {getToken} from '@/utils/tools'
+import {
+  getToken
+} from '@/utils/tools'
 Vue.use(VueLazyLoad, {
-  error: '/static/lazy/loading-spinning-bubbles.svg',
+  error: '/static/lazy/loading-balls.svg',
   loading: '/static/lazy/loading-bars.svg'
 
 })
@@ -85,6 +87,8 @@ new Vue({
   el: '#app',
   router,
   store,
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>'
 })
