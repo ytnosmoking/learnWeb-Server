@@ -87,7 +87,7 @@ export default {
         this.$router.replace({ name: '电影详情', query })
       } else {
         if (JSON.stringify(query) === '{}') {
-          // this.$message('请选择产品...')
+          // this.$message('请选择产品...')12
           this.$message({
             message: '请选择电影.....',
             type: 'warning'
