@@ -65,6 +65,11 @@ export const defaultRouter = [
       name: 'top100',
       path: '/films/top100',
       component: _importView('Movie/top100')
+    },
+    {
+      name: '电影详情',
+      path: '/films/detail',
+      component: _importView('Movie/detail')
     }]
   },
   {

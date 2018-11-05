@@ -6,8 +6,10 @@
     </div>
 
     <ul>
-      <li v-for="(movie,index) in movies.subjects" :key="index" :class="'item'+(index+1)">
-        <a :href="movie.alt">
+      <!-- <li v-for="(movie,index) in movies.subjects" :key="index" :class="'item'+(index+1)"> -->
+        <router-link :to="{name: '电影详情', query:{movie:movie.id}}"
+          tag="li" v-for="movie in movies.subjects" :key="movie.id">
+        <!-- <a :href="movie.alt"> -->
           <div class="imgBd">
             <img v-lazy="movie.images.large" alt="">
           </div>
@@ -24,9 +26,9 @@
             <el-rate v-model="movie.rating.average" :max="10" disabled show-score text-color="#ff9900" score-template="{value}">
             </el-rate>
           </div>
-        </a>
-
-      </li>
+        <!-- </a> -->
+      </router-link>
+      <!-- </li> -->
     </ul>
   </div>
 </template>

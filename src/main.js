@@ -31,13 +31,12 @@ NProgress.configure({
   showSpinner: false
 })
 router.beforeEach((to, from, next) => {
-  NProgress.start()
-  console.log(getToken())
+  // NProgress.start()
+  // console.log(getToken())
   if (getToken()) {
-    console.log(to.path)
-    console.log(store.getters.getFatherRoutes)
+    // console.log(to.path)
+    // console.log(store.getters.getFatherRoutes)
     store.getters.getFatherRoutes.forEach(routes => {
-      console.log(routes)
       if (routes.redirect === to.path) {
         store.state.sonRoutes = routes.children
       } else {

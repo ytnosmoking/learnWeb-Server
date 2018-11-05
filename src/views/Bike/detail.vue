@@ -52,11 +52,6 @@ export default {
             message: '请选择产品...',
             type: 'warning'
           })
-          // this.$notify.error({
-          //   title: '错误',
-          //   message: '请选择产品...'
-          // })
-
           this.$router.go(-1)
         } else {
           resolve()

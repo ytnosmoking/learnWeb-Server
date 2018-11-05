@@ -6,7 +6,11 @@
     </div>
 
     <ul class="clearfix bikeCont">
-      <li v-for="(list, index) in lists" :key="index" class="fl">
+      <router-link  :to="{'name': '详细信息', query:{productId: list.id}}"
+        tag="li"
+        v-for="list in lists" :key="list.id" class="fl"
+        >
+      <!-- <li v-for="(list, index) in lists" :key="index" class="fl"> -->
         <img v-lazy="list.img" alt="">
         <el-collapse @change="handleChange">
           <el-collapse-item title="Name">
@@ -49,7 +53,8 @@
             </dl>
           </el-collapse-item>
         </el-collapse>
-      </li>
+      <!-- </li> -->
+      </router-link>
     </ul>
 
   </div>
@@ -79,7 +84,7 @@ export default {
       this.$store
         .dispatch('getBikeTotal')
         .then(res => {
-          console.log(res)
+          // console.log(res)
           this.lists = res
         })
         .catch(err => console.log(err))

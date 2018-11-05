@@ -86,6 +86,16 @@ const store = new Vuex.Store({
         })
       })
     },
+    getFilmDetail (context, payload) {
+      return new Promise((resolve, reject) => {
+        sendAjax('/movie/subject/' + payload.movie).then(res => {
+          resolve(res)
+        })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
     getWeather (context, payload) {
       return new Promise((resolve, reject) => {
         sendAjax('/weather/Query?key=' + commonKey + '&cityname=' + payload.cityname, {}, 'get').then(res => {
