@@ -89,7 +89,7 @@ export default {
         if (JSON.stringify(query) === '{}') {
           // this.$message('请选择产品...')
           this.$message({
-            message: '请选择电影...',
+            message: '请选择电影.....',
             type: 'warning'
           })
           this.$router.go(-1)
