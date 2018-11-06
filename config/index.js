@@ -33,13 +33,21 @@ module.exports = {
           '^/hot': ''
         }
       },
-       '/weather': {
+      '/weather': {
         target: 'https://api.avatardata.cn/Weather',
         changeOrigin: true,
         pathRewrite: {
           '^/weather': ''
         }
       },
+      // test self
+      '/self': {
+        target: 'http://127.0.0.1:3000/movie',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/self': ''
+        }
+      }
     },
 
     // Various Dev Server settings

@@ -1,8 +1,12 @@
 import Vuex from 'vuex'
 
 import Vue from 'vue'
-import {defaultRouter} from '@/router'
-import {sendAjax} from '@/utils/tools'
+import {
+  defaultRouter
+} from '@/router'
+import {
+  sendAjax
+} from '@/utils/tools'
 
 Vue.use(Vuex)
 
@@ -70,7 +74,8 @@ const store = new Vuex.Store({
     getProductDetail (context, payload) {
       console.log(payload)
       return new Promise((resolve, reject) => {
-        sendAjax('/bike/detail', {...payload})
+        sendAjax('/bike/detail', { ...payload
+        })
           .then(res => resolve(res))
           .catch(err => reject(err))
       })
@@ -108,6 +113,20 @@ const store = new Vuex.Store({
     getShapeData () {
       return new Promise((resolve, reject) => {
         sendAjax('/shape/all')
+          .then(res => resolve(res))
+          .catch(err => reject(err))
+      })
+    },
+    getSelfDetail () {
+      return new Promise((resolve, reject) => {
+        sendAjax('/self/detail?detail=' + Math.ceil(Math.random() * 100), {}, 'get')
+          .then(res => resolve(res))
+          .catch(err => reject(err))
+      })
+    },
+    getSelfGoodId () {
+      return new Promise((resolve, reject) => {
+        sendAjax('/self/goods/' + Math.ceil(Math.random() * 2000))
           .then(res => resolve(res))
           .catch(err => reject(err))
       })

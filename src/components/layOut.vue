@@ -6,8 +6,17 @@
     <el-container>
       <el-header>
         <div class="commonHead">
-          <el-button type="primary" :icon="closeBar?'el-icon-arrow-right':'el-icon-arrow-left'" :circle=btnShape :round=!btnShape style="transition:all .3s ease" @click="closeSideBar" class="fl mt10">
-          </el-button>
+
+          <el-switch
+            class="fl"
+            style="line-height:100%;height:100%;"
+            v-model="closeBar"
+            @click="closeSideBar"
+            active-color="#13ce66"
+            inactive-color="#545c64">
+          </el-switch>
+          <!-- <el-button type="primary" :icon="closeBar?'el-icon-arrow-right':'el-icon-arrow-left'" :circle=btnShape :round=!btnShape style="transition:all .3s ease" @click="closeSideBar" class="fl mt10">
+          </el-button> -->
           <div class="navHead">
             <nav-head></nav-head>
           </div>
@@ -41,9 +50,12 @@
 </template>
 
 <script>
-import {removeToken} from '@/utils/tools'
-import sideBar from './sideBar'
-import navHead from './NavHead'
+// eslint-disable-next-line
+import { removeToken } from "@/utils/tools";
+// eslint-disable-next-line
+import sideBar from "./sideBar";
+// eslint-disable-next-line
+import navHead from "./NavHead";
 export default {
   name: 'LayOut',
   components: {
@@ -111,8 +123,8 @@ export default {
   padding: 20px;
   box-sizing: border-box;
   overflow: hidden;
-    overflow-y: auto;
-   &::-webkit-scrollbar {
+  overflow-y: auto;
+  &::-webkit-scrollbar {
     display: none;
   }
 }
@@ -138,5 +150,4 @@ export default {
     display: none;
   }
 }
-
 </style>
