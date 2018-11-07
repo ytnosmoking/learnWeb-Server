@@ -119,14 +119,21 @@ const store = new Vuex.Store({
     },
     getSelfDetail () {
       return new Promise((resolve, reject) => {
-        sendAjax('/self/detail?detail=' + Math.ceil(Math.random() * 100), {}, 'get')
-          .then(res => resolve(res))
-          .catch(err => reject(err))
+        Promise.all([
+          sendAjax('/local/detail?detail=' + Math.ceil(Math.random() * 100), {}, 'get'),
+          sendAjax('/local/goods/' + Math.ceil(Math.random() * 2000))
+        ]).then((param1) => {
+          console.log(`param1===${JSON.stringify(param1)}`)
+        })
+
+        // sendAjax('/local/detail?detail=' + Math.ceil(Math.random() * 100), {}, 'get')
+        //   .then(res => resolve(res))
+        //   .catch(err => reject(err))
       })
     },
     getSelfGoodId () {
       return new Promise((resolve, reject) => {
-        sendAjax('/self/goods/' + Math.ceil(Math.random() * 2000))
+        sendAjax('/local/goods/' + Math.ceil(Math.random() * 2000))
           .then(res => resolve(res))
           .catch(err => reject(err))
       })

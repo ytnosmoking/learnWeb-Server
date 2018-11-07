@@ -40,12 +40,12 @@ module.exports = {
           '^/weather': ''
         }
       },
-      // test self
-      '/self': {
-        target: 'http://127.0.0.1:3000/movie',
+      // test local Server response
+      '/local': {
+        target: 'http://127.0.0.1:3000/local',
         changeOrigin: true,
         pathRewrite: {
-          '^/self': ''
+          '^/local': ''
         }
       }
     },
