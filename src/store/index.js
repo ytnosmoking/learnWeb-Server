@@ -22,7 +22,9 @@ const store = new Vuex.Store({
   },
   getters: {
     getFatherRoutes (context) {
-      return context.defaultRouter.filter(routes => routes && routes.name && routes.children)
+      return context.defaultRouter.filter(
+        routes => routes && routes.name && routes.children
+      )
     },
     getSideBar (context) {
       return context.sideBar
@@ -44,10 +46,12 @@ const store = new Vuex.Store({
     login (context, payload) {
       return new Promise((resolve, reject) => {
         console.log(payload)
-        sendAjax('/login/login', payload).then(res => {
-          console.log(res)
-          resolve(res)
-        }).catch(err => reject(err))
+        sendAjax('/login/login', payload)
+          .then(res => {
+            console.log(res)
+            resolve(res)
+          })
+          .catch(err => reject(err))
       })
     },
     logout (context, payload) {
@@ -83,19 +87,22 @@ const store = new Vuex.Store({
     getTotalMovie (context, payload) {
       return new Promise((resolve, reject) => {
         // const url = '/book/1220562'
-        sendAjax('/movie/in_theaters').then(res => {
-          console.log(res)
-          resolve(res)
-        }).catch(err => {
-          reject(err)
-        })
+        sendAjax('/movie/in_theaters')
+          .then(res => {
+            console.log(res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
     getFilmDetail (context, payload) {
       return new Promise((resolve, reject) => {
-        sendAjax('/movie/subject/' + payload.movie).then(res => {
-          resolve(res)
-        })
+        sendAjax('/movie/subject/' + payload.movie)
+          .then(res => {
+            resolve(res)
+          })
           .catch(err => {
             reject(err)
           })
@@ -103,11 +110,16 @@ const store = new Vuex.Store({
     },
     getWeather (context, payload) {
       return new Promise((resolve, reject) => {
-        sendAjax('/weather/Query?key=' + commonKey + '&cityname=' + payload.cityname, {}, 'get').then(res => {
-          resolve(res)
-        }).catch(err => {
-          console.log(err)
-        })
+        sendAjax(
+          '/weather/Query?key=' + commonKey + '&cityname=' + payload.cityname, {},
+          'get'
+        )
+          .then(res => {
+            resolve(res)
+          })
+          .catch(err => {
+            console.log(err)
+          })
       })
     },
     getShapeData () {
@@ -117,23 +129,40 @@ const store = new Vuex.Store({
           .catch(err => reject(err))
       })
     },
-    getSelfDetail () {
+    addGoods () {
       return new Promise((resolve, reject) => {
-        Promise.all([
-          sendAjax('/local/detail?detail=' + Math.ceil(Math.random() * 100), {}, 'get'),
-          sendAjax('/local/goods/' + Math.ceil(Math.random() * 2000))
-        ]).then((param1) => {
-          console.log(`param1===${JSON.stringify(param1)}`)
-        })
-
-        // sendAjax('/local/detail?detail=' + Math.ceil(Math.random() * 100), {}, 'get')
-        //   .then(res => resolve(res))
-        //   .catch(err => reject(err))
+        // Promise.all([
+        //   sendAjax(
+        //     '/local/detail?detail=' + Math.ceil(Math.random() * 100), {},
+        //     'get'
+        //   ),
+        //   sendAjax('/local/goods/' + Math.ceil(Math.random() * 2000))
+        // ]).then(param1 => {
+        //   console.log(`param1===${JSON.stringify(param1)}`)
+        // })
+        sendAjax('/local/addGoods')
+          .then(res => resolve(res))
+          .catch(err => reject(err))
       })
     },
-    getSelfGoodId () {
+    getGoods (context, payload) {
       return new Promise((resolve, reject) => {
-        sendAjax('/local/goods/' + Math.ceil(Math.random() * 2000))
+        console.log(payload)
+        sendAjax('/local/getGoods', payload)
+          .then(res => resolve(res))
+          .catch(err => reject(err))
+      })
+    },
+    delGood (context, payload) {
+      return new Promise((resolve, reject) => {
+        sendAjax('/local/delGood', payload)
+          .then(res => resolve(res))
+          .catch(err => reject(err))
+      })
+    },
+    updateGood (context, payload) {
+      return new Promise((resolve, reject) => {
+        sendAjax('/local/updateGood', payload)
           .then(res => resolve(res))
           .catch(err => reject(err))
       })
