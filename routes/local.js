@@ -8,9 +8,9 @@ const User = require('../model/index').User
 
 router.post('/addGoods', (req, res, next) => {
   const dbArr = []
-  for (let i = 0; i < 500; i++) {
+  for (let i = 0; i < 20; i++) {
     dbArr.push({
-      name: i + '',
+      name: i % 5 === 0 ? (i / 5) + '' : (i % 5) + '',
       sex: getRandom(2, 'floor') + '',
       star: getRandom(500),
       money: getRandom(3000)
