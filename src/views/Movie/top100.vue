@@ -6,7 +6,7 @@
    <br>
    <br>
    <div style="text-align:left;">
-      条件：<br>
+      条件1：<br>
       name: <el-input type="text" v-model="body.name"></el-input> <br>
       性别： <el-radio v-model="body.sex" label="1">男</el-radio>
             <el-radio v-model="body.sex" label="0">女</el-radio> <br>
