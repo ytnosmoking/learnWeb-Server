@@ -47,6 +47,13 @@ module.exports = {
         pathRewrite: {
           '^/local': ''
         }
+      },
+      '/upload': {
+        target: 'http://127.0.0.1:3000/upload',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/upload': ''
+        }
       }
     },
 
