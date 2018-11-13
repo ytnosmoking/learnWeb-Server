@@ -14,6 +14,7 @@ import 'normalize.css'
 
 //  common css
 import './public/css/common.less'
+import '@/assets/icon/iconfont.css' //   private icon
 
 // v-lazy
 import VueLazyLoad from 'vue-lazyload'

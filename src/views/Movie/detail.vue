@@ -57,7 +57,7 @@ export default {
       return this.$store.dispatch('getFilmDetail', movieId)
     },
     getImgUrl (url) {
-      return url.replace(/https:\/\//g, 'https://images.weserv.nl/?url=')
+      return url.replace(/https:\/\//g, 'https://images.weserv.nl/?url=') // 请求限制  线上缓存图片地址
     }
   },
 
