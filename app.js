@@ -17,7 +17,7 @@ require('./db/index')
 const app = express();
 
 app.use(multiparty({
-  uploadDir: './uploads'
+  uploadDir: './static'
 }))
 
 // view engine setup
@@ -37,9 +37,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/local", localRouter);
-app.use("/upload", uploadRouter)
-app.use("/static", express.static(path.join(__dirname, "public")));
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/upload", uploadRouter) // 上传处理
+app.use("/static", express.static(path.join(__dirname, "static"))); // 静态文件处理
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-
+const fs = require('fs')
 
 
 
@@ -12,8 +12,8 @@ router.post('/addGoods', (req, res, next) => {
     dbArr.push({
       name: i % 5 === 0 ? (i / 5) + '' : (i % 5) + '',
       sex: getRandom(2, 'floor') + '',
-      star: getRandom(500),
-      money: getRandom(3000)
+      star: getRandom(10),
+      money: getRandom(50)
     })
   }
   User.insertMany(dbArr, (err, docs) => {
@@ -25,52 +25,47 @@ router.post('/addGoods', (req, res, next) => {
       }
     })
   })
-  // res.send(req.query)
-  // User.find({}, (err, docs) => {
-  //   if (err) throw err;
-  //   res.send(docs)
-  // })
-  // res.send('this is movie detail')
 })
 
 router.post('/getGoods', (req, res, next) => {
-  console.log('post....inGetGoods')
-  console.log(req.body)
+  // console.log('post....inGetGoods')
+  // console.log(req.body)
   User.find(req.body, (err, docs) => {
     if (err) throw err;
-    const doclist = []
+    // const doclist = []
+    // console.log('docs==========')
+    // console.log(docs)
     docs.forEach(item => {
-      const itemlist = {
-        name: item.name,
-        sex: item.sex,
-        star: item.star,
-        money: item.money
+      if (!fs.existsSync(item.url)) { // 判断图片是否还存在 （地址存在 图片文件 不一定存在）
+        item.url = ""
       }
-      doclist.push(itemlist)
     })
-    console.log(doclist)
+    // console.log('end-------58----------')
+    // console.log(docs)
     res.send(docs)
   })
 })
 
 router.post('/delGood', (req, res, next) => {
-  User.remove(req.body, (err, result) => {
+  User.deleteOne(req.body, (err, result) => {
     if (err) throw err;
+    // console.log(req.body)
+    fs.unlinkSync(req.body.url) // 删除图像问价
     res.send(result)
   })
 })
 
 router.post('/updateGood', (req, res, next) => {
-  console.log('-------------------')
-  console.log(req.body)
+  // console.log('-------------------')
+  // console.log(req.body)
   User.updateOne({
-    "_id": req.body._id
+    "_id": req.body._id + ""
   }, {
     $set: req.body
   }, (err, result) => {
     if (err) throw err;
-    console.log(result)
-    console.log('-------------------')
+    // console.log(result)
+    // console.log('-------------------')
     res.send(result)
   })
 })
