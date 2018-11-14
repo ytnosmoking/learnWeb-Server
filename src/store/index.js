@@ -1,9 +1,9 @@
 import Vuex from 'vuex'
 
 import Vue from 'vue'
-import {
-  defaultRouter
-} from '@/router'
+// import {
+//   defaultRouter
+// } from '@/router'
 import {
   sendAjax
 } from '@/utils/tools'
@@ -16,14 +16,15 @@ const commonKey = '6cf203f215e043fcb560e0e7082d7e8e'
 
 const store = new Vuex.Store({
   state: {
-    defaultRouter,
+    // defaultRouter,
     sideBar: true,
-    sonRoutes: []
+    sonRoutes: [],
+    userRoles: []
   },
   getters: {
     getFatherRoutes (context) {
-      return context.defaultRouter.filter(
-        routes => routes && routes.name && routes.children
+      return context.userRoles.filter(
+        routes => routes && routes.name && routes.children && !routes.hide
       )
     },
     getSideBar (context) {
@@ -40,6 +41,9 @@ const store = new Vuex.Store({
     changeSonRoutes (context, payload) {
       console.log(payload)
       context.sonRoutes = payload
+    },
+    userRoles (context, payload) {
+      context.userRoles = payload
     }
   },
   actions: {

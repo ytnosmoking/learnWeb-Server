@@ -16,28 +16,34 @@
 </template>
 
 <script>
-import {setToken} from '@/utils/tools'
+/* eslint-disable */
+
+import { setToken } from "@/utils/tools";
+import { configRouter } from "@/router/config";
+
 export default {
-  name: 'Login',
-  data () {
+  name: "Login",
+  data() {
     return {
       form: {
-        username: '',
-        password: ''
+        username: "",
+        password: ""
       }
-    }
+    };
   },
   methods: {
-    login () {
-      this.$store.dispatch('login', this.form).then(res => {
+    login() {
+      this.$store.dispatch("login", this.form).then(res => {
         if (res && res.token) {
-          setToken(res.token)
-          this.$router.push({ path: '/' })
+          setToken(res.token);
+          // this.$router.addRoutes(configRouter);
+          console.log(this.$router);
+          this.$router.push({ path: "/" });
         }
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style lang='less' scoped>
@@ -49,12 +55,11 @@ export default {
   align-content: center;
   .form {
     text-align: center;
-    &>h3 {
+    & > h3 {
       height: 80px;
       line-height: 80px;
       font-size: 24px;
       font-weight: bold;
-
     }
     width: 400px;
     height: 300px;
