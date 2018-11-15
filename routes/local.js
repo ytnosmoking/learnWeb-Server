@@ -28,20 +28,13 @@ router.post('/addGoods', (req, res, next) => {
 })
 
 router.post('/getGoods', (req, res, next) => {
-  // console.log('post....inGetGoods')
-  // console.log(req.body)
   User.find(req.body, (err, docs) => {
     if (err) throw err;
-    // const doclist = []
-    // console.log('docs==========')
-    // console.log(docs)
     docs.forEach(item => {
       if (!fs.existsSync(item.url)) { // 判断图片是否还存在 （地址存在 图片文件 不一定存在）
         item.url = ""
       }
     })
-    // console.log('end-------58----------')
-    // console.log(docs)
     res.send(docs)
   })
 })
@@ -49,31 +42,24 @@ router.post('/getGoods', (req, res, next) => {
 router.post('/delGood', (req, res, next) => {
   User.deleteOne(req.body, (err, result) => {
     if (err) throw err;
-    // console.log(req.body)
     fs.unlinkSync(req.body.url) // 删除图像问价
     res.send(result)
   })
 })
 
 router.post('/updateGood', (req, res, next) => {
-  // console.log('-------------------')
-  // console.log(req.body)
   User.updateOne({
     "_id": req.body._id + ""
   }, {
     $set: req.body
   }, (err, result) => {
     if (err) throw err;
-    // console.log(result)
-    // console.log('-------------------')
     res.send(result)
   })
 })
 
-
 function getRandom(counts, style = "ceil") {
   return Math[style](Math.random() * counts)
 }
-
 
 module.exports = router

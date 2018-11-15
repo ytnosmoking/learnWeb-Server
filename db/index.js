@@ -10,7 +10,7 @@ mongose.connect(serverUrl, serverConfig)
 const db = mongose.connection
 
 db.on('connected', () => {
-  console.log('data is online...!')
+  console.log('data is online............................!')
 })
 db.on('error', () => {
   console.log('mongDB is error!')
