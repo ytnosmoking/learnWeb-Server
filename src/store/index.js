@@ -22,32 +22,33 @@ const store = new Vuex.Store({
     userRoles: []
   },
   getters: {
-    getFatherRoutes (context) {
+    getFatherRoutes(context) {
       return context.userRoles.filter(
         routes => routes && routes.name && routes.children && !routes.hide
       )
     },
-    getSideBar (context) {
+    getSideBar(context) {
       return context.sideBar
     },
-    getSonRoutes (context) {
+    getSonRoutes(context) {
       return context.sonRoutes
     }
   },
   mutations: {
-    changeSidebar (context, payload) {
+    changeSidebar(context, payload) {
+      console.log(payload)
       context.sideBar = payload
     },
-    changeSonRoutes (context, payload) {
+    changeSonRoutes(context, payload) {
       console.log(payload)
       context.sonRoutes = payload
     },
-    userRoles (context, payload) {
+    userRoles(context, payload) {
       context.userRoles = payload
     }
   },
   actions: {
-    login (context, payload) {
+    login(context, payload) {
       return new Promise((resolve, reject) => {
         console.log(payload)
         sendAjax('/login/login', payload)
@@ -58,28 +59,28 @@ const store = new Vuex.Store({
           .catch(err => reject(err))
       })
     },
-    logout (context, payload) {
+    logout(context, payload) {
       return new Promise((resolve, reject) => {
         sendAjax('/login/logout')
           .then(res => resolve(res))
           .catch(err => reject(err))
       })
     },
-    getBikeTotal (context, payload) {
+    getBikeTotal(context, payload) {
       return new Promise((resolve, reject) => {
         sendAjax('/bike/total')
           .then(res => resolve(res))
           .catch(err => reject(err))
       })
     },
-    getBikeProducts (context, payload) {
+    getBikeProducts(context, payload) {
       return new Promise((resolve, reject) => {
         sendAjax('/bike/products')
           .then(res => resolve(res))
           .catch(err => reject(err))
       })
     },
-    getProductDetail (context, payload) {
+    getProductDetail(context, payload) {
       console.log(payload)
       return new Promise((resolve, reject) => {
         sendAjax('/bike/detail', { ...payload
@@ -88,7 +89,7 @@ const store = new Vuex.Store({
           .catch(err => reject(err))
       })
     },
-    getTotalMovie (context, payload) {
+    getTotalMovie(context, payload) {
       return new Promise((resolve, reject) => {
         // const url = '/book/1220562'
         sendAjax('/movie/in_theaters')
@@ -101,7 +102,7 @@ const store = new Vuex.Store({
           })
       })
     },
-    getFilmDetail (context, payload) {
+    getFilmDetail(context, payload) {
       return new Promise((resolve, reject) => {
         sendAjax('/movie/subject/' + payload.movie)
           .then(res => {
@@ -112,7 +113,7 @@ const store = new Vuex.Store({
           })
       })
     },
-    getWeather (context, payload) {
+    getWeather(context, payload) {
       return new Promise((resolve, reject) => {
         sendAjax(
           '/weather/Query?key=' + commonKey + '&cityname=' + payload.cityname, {},
@@ -126,14 +127,14 @@ const store = new Vuex.Store({
           })
       })
     },
-    getShapeData () {
+    getShapeData() {
       return new Promise((resolve, reject) => {
         sendAjax('/shape/all')
           .then(res => resolve(res))
           .catch(err => reject(err))
       })
     },
-    addGoods () {
+    addGoods() {
       return new Promise((resolve, reject) => {
         // Promise.all([
         //   sendAjax(
@@ -149,7 +150,7 @@ const store = new Vuex.Store({
           .catch(err => reject(err))
       })
     },
-    getGoods (context, payload) {
+    getGoods(context, payload) {
       return new Promise((resolve, reject) => {
         console.log(payload)
         sendAjax('/local/getGoods', payload)
@@ -157,14 +158,14 @@ const store = new Vuex.Store({
           .catch(err => reject(err))
       })
     },
-    delGood (context, payload) {
+    delGood(context, payload) {
       return new Promise((resolve, reject) => {
         sendAjax('/local/delGood', payload)
           .then(res => resolve(res))
           .catch(err => reject(err))
       })
     },
-    updateGood (context, payload) {
+    updateGood(context, payload) {
       return new Promise((resolve, reject) => {
         sendAjax('/local/updateGood', payload)
           .then(res => resolve(res))

@@ -1,32 +1,32 @@
 <template>
   <el-container class="commonView">
-    <el-aside width="200px" :class="{active: closeBar}">
-      <side-bar></side-bar>
+    <el-aside :class="{active: closeBar}" width="100px">
+      <side-bar/>
     </el-aside>
     <el-container>
+      <!-- header start -->
       <el-header>
         <div class="commonHead">
-
+          <!-- left controlSideBar -->
           <el-switch
+            v-model="closeBar"
             class="fl"
             style="line-height:100%;height:100%;"
-            v-model="closeBar"
-            @click="closeSideBar"
             active-color="#13ce66"
-            inactive-color="#545c64">
-          </el-switch>
-          <!-- <el-button type="primary" :icon="closeBar?'el-icon-arrow-right':'el-icon-arrow-left'" :circle=btnShape :round=!btnShape style="transition:all .3s ease" @click="closeSideBar" class="fl mt10">
-          </el-button> -->
+            inactive-color="#545c64"
+            @change="closeSideBar"/>
+          <!-- middle router -->
           <div class="navHead">
-            <nav-head></nav-head>
+            <nav-head/>
           </div>
+          <!-- right setting  -->
           <el-row class="block-col-2 fr">
             <el-col>
               <el-dropdown @command="userSet">
                 <span class="el-dropdown-link">
-                  设置
                   <!-- <i class="el-icon-arrow-down el-icon--right"></i> -->
-                  <i class="el-icon-setting el-icon--right"></i>
+                  <img :src="'http://localhost:3000/static/images/5beabb2535278719563f90dctask1.png'" class="userImg" alt="">
+                  <!-- <i class="el-icon-setting el-icon--right"></i> -->
                 </span>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item command="out">退出</el-dropdown-item>
@@ -37,13 +37,14 @@
           </el-row>
         </div>
       </el-header>
+      <!-- header end -->
       <!-- <el-main> -->
-        <div class="main">
+      <div class="main">
 
         <transition mode="out-in" enter-active-class="animated fadeInLeft" leave-active-class="animated fadeOutRight" class="" >
-          <router-view ></router-view>
+          <router-view />
         </transition>
-        </div>
+      </div>
       <!-- </el-main> -->
     </el-container>
   </el-container>
@@ -62,21 +63,22 @@ export default {
     sideBar,
     navHead
   },
-  data () {
+  data() {
     return {
       btnShape: true,
       closeBar: true
     }
   },
   methods: {
-    closeSideBar () {
-      this.closeBar = !this.closeBar
+    closeSideBar() {
+      // this.closeBar = !this.closeBar
+      console.log(this.closeBar)
       this.$store.commit('changeSidebar', this.closeBar)
     },
-    showBtnShape (boolean) {
+    showBtnShape(boolean) {
       this.btnShape = boolean
     },
-    userSet (command) {
+    userSet(command) {
       console.log(command)
       if (command === 'out') {
         this.$store.dispatch('logout').then(res => {
@@ -95,7 +97,7 @@ export default {
   transition: all 0.3s ease;
 }
 .active {
-  width: 100px !important;
+  width: 50px !important;
 }
 .el-header {
   background-color: #b3c0d1;
@@ -140,14 +142,26 @@ export default {
 }
 .navHead {
   display: inline-block;
-  width: calc(100% - 100px);
+  width: calc(100% - 200px);
   height: 100%;
+  padding: 0 10px;
   overflow: hidden;
   overflow-x: auto;
   position: relative;
   box-sizing: border-box;
   &::-webkit-scrollbar {
     display: none;
+  }
+  // border: 1px solid blue;
+  box-shadow: -5px 0 10px -5px red, -10px 0 10px -5px blue, 5px 0 10px -5px red;
+}
+.userImg {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  vertical-align: middle;
+  & + i {
+    transform: scale(1.2);
   }
 }
 </style>

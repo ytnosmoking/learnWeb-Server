@@ -1,31 +1,34 @@
 <template>
-  <div class="detail"  v-loading="loading">
+  <div v-loading="loading" class="detail">
     <!-- <img v-lazy="detail.imgs" class="fl"> -->
-    <el-carousel class="imgCont fl"
+    <el-carousel
+      class="imgCont fl"
       indicator-position="none">
       <el-carousel-item v-for="item in detail.imgs" :key="item">
         <img v-lazy="item" alt="">
       </el-carousel-item>
     </el-carousel>
 
-    <p class="clearAfter">{{detail.detail}}</p>
+    <p class="clearAfter">{{ detail.detail }}</p>
     <el-popover
+      :content="detail.name"
       width="200"
-      trigger="hover"
-      :content="detail.name">
-     <h3 slot="reference">{{detail.name}}</h3>
+      trigger="hover">
+      <h3 slot="reference">{{ detail.name }}</h3>
     </el-popover>
 
-    <em>{{detail.id}}</em>
+    <em>{{ detail.id }}</em>
 
-    <el-carousel :interval="4000"
+    <el-carousel
+      :interval="4000"
       arrow="never"
-      type="card" indicator-position="none">
-     <el-carousel-item v-for="item in detail.imgs" :key="item">
+      type="card"
+      indicator-position="none">
+      <el-carousel-item v-for="item in detail.imgs" :key="item">
         <img v-lazy="item" alt="">
       </el-carousel-item>
     </el-carousel>
-     <el-carousel indicator-position="outside" arrow="always">
+    <el-carousel indicator-position="outside" arrow="always">
       <el-carousel-item v-for="item in detail.imgs" :key="item">
         <img v-lazy="item" alt="">
       </el-carousel-item>
@@ -36,14 +39,34 @@
 <script>
 export default {
   name: 'BikeDetail',
-  data () {
+  data() {
     return {
       detail: {},
       loading: true
     }
   },
+  watch: {
+    $route(to, from) {
+      console.log(to.query)
+      const productId = to.query
+      this.goBack(productId)
+    }
+  },
+  mounted() {
+    const productId = this.$route.query
+    this.goBack(productId).then(() => {
+      this.getProductDetail(productId).then(res => {
+        console.log(res)
+
+        setTimeout(() => {
+          this.detail = res
+          this.loading = false
+        }, 5000)
+      })
+    })
+  },
   methods: {
-    goBack (query) {
+    goBack(query) {
       return new Promise((resolve, reject) => {
         console.log(query)
         if (JSON.stringify(query) === '{}') {
@@ -58,28 +81,8 @@ export default {
         }
       })
     },
-    getProductDetail (productId) {
+    getProductDetail(productId) {
       return this.$store.dispatch('getProductDetail', productId)
-    }
-  },
-  mounted () {
-    const productId = this.$route.query
-    this.goBack(productId).then(() => {
-      this.getProductDetail(productId).then(res => {
-        console.log(res)
-
-        setTimeout(() => {
-          this.detail = res
-          this.loading = false
-        }, 5000)
-      })
-    })
-  },
-  watch: {
-    $route (to, from) {
-      console.log(to.query)
-      const productId = to.query
-      this.goBack(productId)
     }
   }
 }

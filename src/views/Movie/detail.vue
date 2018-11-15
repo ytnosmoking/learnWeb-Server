@@ -1,40 +1,40 @@
 <template>
   <div class="detail">
     <img v-lazy="detail.images.large" class="fl detail_img">
-    <h3>{{detail.original_title}}</h3>
-    <h5>译名：<span v-for="name in detail.aka" :key="name">{{name}}&nbsp;</span></h5>
+    <h3>{{ detail.original_title }}</h3>
+    <h5>译名：<span v-for="name in detail.aka" :key="name">{{ name }}&nbsp;</span></h5>
     <div>导演：
       <span v-for="director in detail.directors" :key="director.id">
-        {{director.name}}
+        {{ director.name }}
       </span>
     </div>
     <div>主演：
       <span v-for="cast in detail.casts" :key="cast.id">
-        {{cast.name}}
+        {{ cast.name }}
       </span>
     </div>
     <div>类型：
       <span v-for="genre in detail.genres" :key="genre">
-        {{genre}}
+        {{ genre }}
       </span>
     </div>
     <div>制片国家/地区:
       <span v-for="country in detail.countries" :key="country">
-        {{country}}
+        {{ country }}
       </span>
     </div>
     <div class="clearfix" style="margin-top:10px;">
-      <h3>{{detail.title}}剧情简介...</h3>
-      <p>{{detail.summary}}</p>
+      <h3>{{ detail.title }}剧情简介...</h3>
+      <p>{{ detail.summary }}</p>
     </div>
     <div>
-      <h3>{{detail.title}}的演职员...（全部）</h3>
+      <h3>{{ detail.title }}的演职员...（全部）</h3>
       <ul class="castUl">
-        <li  v-for="cast in detail.casts" :key="cast.id" class="fl casts">
+        <li v-for="cast in detail.casts" :key="cast.id" class="fl casts">
           <img v-lazy="getImgUrl(cast.avatars.small)">
           <!-- <img :src="cast.avatars.small"> -->
           <br>
-          {{cast.name}}
+          {{ cast.name }}
         </li>
       </ul>
     </div>
@@ -44,42 +44,15 @@
 <script>
 export default {
   name: 'BikeDetail',
-  data () {
+  data() {
     return {
       detail: {
         images: {}
       }
     }
   },
-  methods: {
-    getFilmDetail (movieId) {
-      console.log(movieId)
-      return this.$store.dispatch('getFilmDetail', movieId)
-    },
-    getImgUrl (url) {
-      return url.replace(/https:\/\//g, 'https://images.weserv.nl/?url=') // 请求限制  线上缓存图片地址
-    }
-  },
-
-  mounted () {
-    const query = this.$route.query
-    if (JSON.stringify(query) === '{}') {
-      // this.$message('请选择产品...')
-      this.$message({
-        message: '请选择电影...',
-        type: 'warning'
-      })
-      this.$router.go(-1)
-    } else {
-      alert(JSON.stringify(query))
-      this.getFilmDetail(query).then(res => {
-        console.log(res)
-        this.detail = res
-      })
-    }
-  },
   watch: {
-    $route (to, from) {
+    $route(to, from) {
       let query = to.query
       if (from.query && JSON.stringify(query) === '{}') {
         console.log(query)
@@ -101,6 +74,33 @@ export default {
           })
         }
       }
+    }
+  },
+
+  mounted() {
+    const query = this.$route.query
+    if (JSON.stringify(query) === '{}') {
+      // this.$message('请选择产品...')
+      this.$message({
+        message: '请选择电影...',
+        type: 'warning'
+      })
+      this.$router.go(-1)
+    } else {
+      alert(JSON.stringify(query))
+      this.getFilmDetail(query).then(res => {
+        console.log(res)
+        this.detail = res
+      })
+    }
+  },
+  methods: {
+    getFilmDetail(movieId) {
+      console.log(movieId)
+      return this.$store.dispatch('getFilmDetail', movieId)
+    },
+    getImgUrl(url) {
+      return url.replace(/https:\/\//g, 'https://images.weserv.nl/?url=') // 请求限制  线上缓存图片地址
     }
   }
 }

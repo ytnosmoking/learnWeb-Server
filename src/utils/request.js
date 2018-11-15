@@ -1,5 +1,8 @@
 import axios from 'axios'
-import { Message, Loading } from 'element-ui'
+import {
+  Message,
+  Loading
+} from 'element-ui'
 // import store from '@/store'
 
 const BASE_URL = process.env.NODE_ENV === 'production'

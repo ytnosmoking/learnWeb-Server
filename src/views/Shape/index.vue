@@ -1,27 +1,34 @@
-<template>
- <div>
-   <h3> all the shape</h3>
-   <div class="cont">
-      <div id="line" v-loading="lineLoad"></div>
-      <div id="bar" v-loading="barLoad"></div>
-      <div id="pie"></div>
-      <!-- <div id="scatter"></div> -->
-      <div id="heatMap"></div>
-      <div id="sunburst"></div>
-      <div id="Funnel"></div>
-   </div>
 
- </div>
+<template>
+  <div>
+    <h3> all the shape</h3>
+    <div class="cont">
+      <div v-loading="lineLoad" id="line"/>
+      <div v-loading="barLoad" id="bar"/>
+      <div id="pie"/>
+      <!-- <div id="scatter"></div> -->
+      <div id="heatMap"/>
+      <div id="sunburst"/>
+      <div id="Funnel"/>
+    </div>
+
+  </div>
 </template>
 
 <script>
-import { getDomById } from '@/utils'
-
-import { hours, days, hData, sunColor, sunBgColor, sunStyle, sunData } from './json'
-// const scatterData = require('./json').scatterData
-// const scatterGeoCoordMap = require('./json').scatterGeoCoordMap
-
-var heatData = hData.map(function (item) {
+// eslint-disable-next-line
+import { getDomById } from "@/utils";
+import {
+  hours,
+  days,
+  hData,
+  sunColor,
+  sunBgColor,
+  sunStyle,
+  sunData
+  // eslint-disable-next-line
+} from "./json";
+var heatData = hData.map(function(item) {
   return [item[1], item[0], item[2] || '-']
 })
 var echarts = require('echarts/lib/echarts')
@@ -44,7 +51,7 @@ for (var j = 0; j < sunData.length; ++j) {
     var bookScore = []
     var bookScoreId
     for (var star = 0; star < block.length; ++star) {
-      var style = (function (name) {
+      var style = (function(name) {
         switch (name) {
           case '5☆':
             bookScoreId = 0
@@ -73,7 +80,7 @@ for (var j = 0; j < sunData.length; ++j) {
           opacity: 1,
           color: style.color
         }
-        block[star].children.forEach(function (book) {
+        block[star].children.forEach(function(book) {
           book.value = 1
           book.itemStyle = style
 
@@ -104,8 +111,8 @@ for (var j = 0; j < sunData.length; ++j) {
   }
 }
 export default {
-  name: 'Shape-All',
-  data () {
+  name: 'ShapeAll',
+  data() {
     return {
       lineLoad: true,
       line: {
@@ -164,7 +171,8 @@ export default {
         },
         tooltip: {
           trigger: 'axis',
-          axisPointer: { // 坐标轴指示器，坐标轴触发有效
+          axisPointer: {
+            // 坐标轴指示器，坐标轴触发有效
             type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
           }
         },
@@ -185,7 +193,7 @@ export default {
         yAxis: [
           {
             type: 'category',
-            axisTick: {show: false},
+            axisTick: { show: false },
             data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
           }
         ],
@@ -237,7 +245,18 @@ export default {
         legend: {
           orient: 'vertical',
           x: 'left',
-          data: ['直达', '营销广告', '搜索引擎', '邮件营销', '联盟广告', '视频广告', '百度', '谷歌', '必应', '其他']
+          data: [
+            '直达',
+            '营销广告',
+            '搜索引擎',
+            '邮件营销',
+            '联盟广告',
+            '视频广告',
+            '百度',
+            '谷歌',
+            '必应',
+            '其他'
+          ]
         },
         series: [
           {
@@ -257,9 +276,9 @@ export default {
               }
             },
             data: [
-              {value: 335, name: '直达', selected: true},
-              {value: 679, name: '营销广告'},
-              {value: 1548, name: '搜索引擎'}
+              { value: 335, name: '直达', selected: true },
+              { value: 679, name: '营销广告' },
+              { value: 1548, name: '搜索引擎' }
             ]
           },
           {
@@ -311,14 +330,14 @@ export default {
               }
             },
             data: [
-              {value: 335, name: '直达'},
-              {value: 310, name: '邮件营销'},
-              {value: 234, name: '联盟广告'},
-              {value: 135, name: '视频广告'},
-              {value: 1048, name: '百度'},
-              {value: 251, name: '谷歌'},
-              {value: 147, name: '必应'},
-              {value: 102, name: '其他'}
+              { value: 335, name: '直达' },
+              { value: 310, name: '邮件营销' },
+              { value: 234, name: '联盟广告' },
+              { value: 135, name: '视频广告' },
+              { value: 1048, name: '百度' },
+              { value: 251, name: '谷歌' },
+              { value: 147, name: '必应' },
+              { value: 102, name: '其他' }
             ]
           }
         ]
@@ -334,8 +353,14 @@ export default {
         },
         polar: {},
         tooltip: {
-          formatter: function (params) {
-            return params.value[2] + ' commits in ' + hours[params.value[1]] + ' of ' + days[params.value[0]]
+          formatter: function(params) {
+            return (
+              params.value[2] +
+              ' commits in ' +
+              hours[params.value[1]] +
+              ' of ' +
+              days[params.value[0]]
+            )
           }
         },
         angleAxis: {
@@ -363,18 +388,20 @@ export default {
             rotate: 45
           }
         },
-        series: [{
-          name: 'Punch Card',
-          type: 'scatter',
-          coordinateSystem: 'polar',
-          symbolSize: function (val) {
-            return val[2] * 2
-          },
-          data: hData,
-          animationDelay: function (idx) {
-            return idx * 5
+        series: [
+          {
+            name: 'Punch Card',
+            type: 'scatter',
+            coordinateSystem: 'polar',
+            symbolSize: function(val) {
+              return val[2] * 2
+            },
+            data: hData,
+            animationDelay: function(idx) {
+              return idx * 5
+            }
           }
-        }]
+        ]
       },
       heatMap: {
         title: {
@@ -410,86 +437,96 @@ export default {
           left: 'center',
           bottom: '15%'
         },
-        series: [{
-          name: 'Punch Card',
-          type: 'heatmap',
-          data: heatData,
-          label: {
-            normal: {
-              show: true
-            }
-          },
-          itemStyle: {
-            emphasis: {
-              shadowBlur: 10,
-              shadowColor: 'rgba(0, 0, 0, 0.5)'
+        series: [
+          {
+            name: 'Punch Card',
+            type: 'heatmap',
+            data: heatData,
+            label: {
+              normal: {
+                show: true
+              }
+            },
+            itemStyle: {
+              emphasis: {
+                shadowBlur: 10,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
             }
           }
-        }]
+        ]
       },
       sunburst: {
         backgroundColor: sunBgColor,
         color: sunColor,
-        series: [{
-          type: 'sunburst',
-          center: ['50%', '48%'],
-          data: sunData,
-          sort: function (a, b) {
-            if (a.depth === 1) {
-              return b.getValue() - a.getValue()
-            } else {
-              return a.dataIndex - b.dataIndex
-            }
-          },
-          label: {
-            rotate: 'radial',
-            color: sunBgColor
-          },
-          itemStyle: {
-            borderColor: sunBgColor,
-            borderWidth: 2
-          },
-          levels: [{}, {
-            r0: 0,
-            r: 40,
-            label: {
-              rotate: 0
-            }
-          }, {
-            r0: 40,
-            r: 105
-          }, {
-            r0: 115,
-            r: 140,
-            itemStyle: {
-              shadowBlur: 2,
-              shadowColor: sunColor[2],
-              color: 'transparent'
-            },
-            label: {
-              rotate: 'tangential',
-              fontSize: 10,
-              color: sunColor[0]
-            }
-          }, {
-            r0: 140,
-            r: 145,
-            itemStyle: {
-              shadowBlur: 80,
-              shadowColor: sunColor[0]
-            },
-            label: {
-              position: 'outside',
-              textShadowBlur: 5,
-              textShadowColor: '#333'
-            },
-            downplay: {
-              label: {
-                opacity: 0.5
+        series: [
+          {
+            type: 'sunburst',
+            center: ['50%', '48%'],
+            data: sunData,
+            sort: function(a, b) {
+              if (a.depth === 1) {
+                return b.getValue() - a.getValue()
+              } else {
+                return a.dataIndex - b.dataIndex
               }
-            }
-          }]
-        }]
+            },
+            label: {
+              rotate: 'radial',
+              color: sunBgColor
+            },
+            itemStyle: {
+              borderColor: sunBgColor,
+              borderWidth: 2
+            },
+            levels: [
+              {},
+              {
+                r0: 0,
+                r: 40,
+                label: {
+                  rotate: 0
+                }
+              },
+              {
+                r0: 40,
+                r: 105
+              },
+              {
+                r0: 115,
+                r: 140,
+                itemStyle: {
+                  shadowBlur: 2,
+                  shadowColor: sunColor[2],
+                  color: 'transparent'
+                },
+                label: {
+                  rotate: 'tangential',
+                  fontSize: 10,
+                  color: sunColor[0]
+                }
+              },
+              {
+                r0: 140,
+                r: 145,
+                itemStyle: {
+                  shadowBlur: 80,
+                  shadowColor: sunColor[0]
+                },
+                label: {
+                  position: 'outside',
+                  textShadowBlur: 5,
+                  textShadowColor: '#333'
+                },
+                downplay: {
+                  label: {
+                    opacity: 0.5
+                  }
+                }
+              }
+            ]
+          }
+        ]
       },
       Funnel: {
         title: {
@@ -502,7 +539,7 @@ export default {
         },
         toolbox: {
           feature: {
-            dataView: {readOnly: false},
+            dataView: { readOnly: false },
             restore: {},
             saveAsImage: {}
           }
@@ -554,23 +591,18 @@ export default {
               }
             },
             data: [
-              {value: 60, name: '访问'},
-              {value: 40, name: '咨询'},
-              {value: 20, name: '订单'},
-              {value: 80, name: '点击'},
-              {value: 100, name: '展现'}
+              { value: 60, name: '访问' },
+              { value: 40, name: '咨询' },
+              { value: 20, name: '订单' },
+              { value: 80, name: '点击' },
+              { value: 100, name: '展现' }
             ]
           }
         ]
       }
     }
   },
-  methods: {
-    getShapeData () {
-      return this.$store.dispatch('getShapeData')
-    }
-  },
-  mounted () {
+  mounted() {
     const line = echarts.init(getDomById('line'))
     const bar = echarts.init(getDomById('bar'))
     const pie = echarts.init(getDomById('pie'))
@@ -578,20 +610,19 @@ export default {
     const sunburst = echarts.init(getDomById('sunburst'))
     const Funnel = echarts.init(getDomById('Funnel'))
     // const scatter = echarts.init(getDomById('scatter'))
-    this.getShapeData()
-      .then(res => {
-        setTimeout(() => {
-          console.log(res)
-          this.lineLoad = false
-          res.line.forEach((item, index) => {
-            this.line.series[index].data = item
-            this.bar.series[index].data = item
-          })
-          line.setOption(this.line)
-          this.barLoad = false
-          bar.setOption(this.bar)
-        }, 3000)
-      })
+    this.getShapeData().then(res => {
+      setTimeout(() => {
+        console.log(res)
+        this.lineLoad = false
+        res.line.forEach((item, index) => {
+          this.line.series[index].data = item
+          this.bar.series[index].data = item
+        })
+        line.setOption(this.line)
+        this.barLoad = false
+        bar.setOption(this.bar)
+      }, 3000)
+    })
     // 绘制图表
     // line.setOption(this.line)
 
@@ -606,29 +637,35 @@ export default {
       pie.resize()
       heatMap.resize()
       sunburst.resize()
+      // eslint-disable-next-line
+    };
+  },
+  methods: {
+    getShapeData() {
+      return this.$store.dispatch('getShapeData')
     }
   }
 }
 </script>
 
 <style lang='less' scoped>
-  .cont {
-    display: flex;
-    flex-wrap: wrap;
-    &>div {
-      width: 100%;
-      height: 400px;
-    }
+.cont {
+  display: flex;
+  flex-wrap: wrap;
+  & > div {
+    width: 100%;
+    height: 400px;
   }
-  // #bar {
-  //   width: 300px;
-  //   height: 300px;
-  //   // height: 300px;
-  //   // background: blue;
-  // }
-  // #pie {
-  //   width: 100%;
-  //   height: 300px;
-  //   // height: 500px;
-  // }
+}
+// #bar {
+//   width: 300px;
+//   height: 300px;
+//   // height: 300px;
+//   // background: blue;
+// }
+// #pie {
+//   width: 100%;
+//   height: 300px;
+//   // height: 500px;
+// }
 </style>

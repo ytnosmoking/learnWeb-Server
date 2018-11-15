@@ -1,9 +1,10 @@
-
 import Mock from 'mockjs'
-import {config2Obj} from '@/utils'
+import {
+  config2Obj
+} from '@/utils'
 const Random = Mock.Random
 export default {
-  total () {
+  total() {
     const count = 20
     const lists = []
     for (let i = 0; i < count; i++) {
@@ -37,7 +38,7 @@ export default {
     }
     return lists
   },
-  products () {
+  products() {
     const count = Math.ceil(Math.random() * 100)
     const lists = []
     for (let i = 0; i < count; i++) {
@@ -48,7 +49,7 @@ export default {
     }
     return lists
   },
-  productsDetail (config) {
+  productsDetail(config) {
     console.log(config.body)
     const product = config2Obj(config.body)
     const imgs = []

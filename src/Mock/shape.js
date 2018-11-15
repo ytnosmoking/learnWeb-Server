@@ -8,7 +8,7 @@ for (let i = 0; i < 7; i++) {
 console.log(arrNum)
 
 export default {
-  all () {
+  all() {
     const datas = {}
     datas.line = [
       Random.range(20, 20 * 8, 20),

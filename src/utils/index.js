@@ -1,4 +1,4 @@
-export function param2Obj (url) {
+export function param2Obj(url) {
   const search = url.split('?')[1]
   if (!search) {
     return {}
@@ -6,10 +6,10 @@ export function param2Obj (url) {
   return JSON.parse('{"' + decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}')
 }
 
-export function config2Obj (params) {
+export function config2Obj(params) {
   return JSON.parse(params)
 }
 
-export function getDomById (id) {
+export function getDomById(id) {
   return document.getElementById(id)
 }

@@ -1,49 +1,48 @@
 <template>
   <div class="content">
 
-    <el-form class="form" ref="form" :model="form" label-width="80px">
+    <el-form ref="form" :model="form" class="form" label-width="80px">
       <h3>登录</h3>
       <el-form-item label="用户名">
-        <el-input v-model="form.username"></el-input>
+        <el-input v-model="form.username"/>
       </el-form-item>
       <el-form-item label="密码">
-        <el-input v-model="form.password" type="password" @keyup.enter.native="login"></el-input>
+        <el-input v-model="form.password" type="password" @keyup.enter.native="login"/>
       </el-form-item>
 
-        <el-button type="primary" @click="login">登录</el-button>
+      <el-button type="primary" @click="login">登录</el-button>
     </el-form>
   </div>
 </template>
 
 <script>
-/* eslint-disable */
-
+// eslint-disable-next-line
 import { setToken } from "@/utils/tools";
-import { configRouter } from "@/router/config";
+// import { configRouter } from '@/router/config';
 
 export default {
-  name: "Login",
+  name: 'Login',
   data() {
     return {
       form: {
-        username: "",
-        password: ""
+        username: '',
+        password: ''
       }
-    };
+    }
   },
   methods: {
     login() {
-      this.$store.dispatch("login", this.form).then(res => {
+      this.$store.dispatch('login', this.form).then(res => {
         if (res && res.token) {
-          setToken(res.token);
+          setToken(res.token)
           // this.$router.addRoutes(configRouter);
-          console.log(this.$router);
-          this.$router.push({ path: "/" });
+          console.log(this.$router)
+          this.$router.push({ path: '/' })
         }
-      });
+      })
     }
   }
-};
+}
 </script>
 
 <style lang='less' scoped>

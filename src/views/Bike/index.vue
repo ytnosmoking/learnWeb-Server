@@ -6,50 +6,53 @@
     </div>
 
     <ul class="clearfix bikeCont">
-      <router-link  :to="{'name': '详细信息', query:{productId: list.id}}"
+      <router-link
+        v-for="list in lists"
+        :to="{'name': '详细信息', query:{productId: list.id}}"
+        :key="list.id"
         tag="li"
-        v-for="list in lists" :key="list.id" class="fl"
-        >
-      <!-- <li v-for="(list, index) in lists" :key="index" class="fl"> -->
+        class="fl"
+      >
+        <!-- <li v-for="(list, index) in lists" :key="index" class="fl"> -->
         <img v-lazy="list.img" alt="">
         <el-collapse @change="handleChange">
           <el-collapse-item title="Name">
-            <div>first === {{list.first}}</div>
-            <div>last === {{list.last}}</div>
-            <div>name === {{list.name}}</div>
+            <div>first === {{ list.first }}</div>
+            <div>last === {{ list.last }}</div>
+            <div>name === {{ list.name }}</div>
           </el-collapse-item>
           <el-collapse-item title="para color">
-            <div :style="{'color':list.color}">{{list.para}}</div>
+            <div :style="{'color':list.color}">{{ list.para }}</div>
           </el-collapse-item>
           <el-collapse-item title="now">
-            <div>now === {{list.now}}</div>
+            <div>now === {{ list.now }}</div>
           </el-collapse-item>
           <el-collapse-item title="Boolean">
-            <div>Boolean === {{list.boolean}}</div>
+            <div>Boolean === {{ list.boolean }}</div>
           </el-collapse-item>
           <el-collapse-item title="URL">
             <dl>
-              <dt>domin === {{list.domin}}</dt>
-              <dd>tld === {{list.tld}}</dd>
-              <dd>email === {{list.email}}</dd>
-              <dd>ip === {{list.ip}}</dd>
-              <dd>url === {{list.url}}</dd>
-              <dd>protocol === {{list.protocol}}</dd>
+              <dt>domin === {{ list.domin }}</dt>
+              <dd>tld === {{ list.tld }}</dd>
+              <dd>email === {{ list.email }}</dd>
+              <dd>ip === {{ list.ip }}</dd>
+              <dd>url === {{ list.url }}</dd>
+              <dd>protocol === {{ list.protocol }}</dd>
             </dl>
           </el-collapse-item>
           <el-collapse-item title="PLACE">
             <dl>
-              <dt>region === {{list.region}}</dt>
-              <dd>province === {{list.province}}</dd>
-              <dd>city === {{list.city}}</dd>
-              <dd>county === {{list.county}}</dd>
+              <dt>region === {{ list.region }}</dt>
+              <dd>province === {{ list.province }}</dd>
+              <dd>city === {{ list.city }}</dd>
+              <dd>county === {{ list.county }}</dd>
             </dl>
           </el-collapse-item>
           <el-collapse-item title="ID" name="9">
             <dl>
-              <dt>guid === {{list.guid}}</dt>
-              <dd>id === {{list.id}}</dd>
-              <dd>zip === {{list.zip}}</dd>
+              <dt>guid === {{ list.guid }}</dt>
+              <dd>id === {{ list.id }}</dd>
+              <dd>zip === {{ list.zip }}</dd>
             </dl>
           </el-collapse-item>
         </el-collapse>
@@ -61,12 +64,16 @@
 </template>
 
 <script>
-import Waterfall from 'vue-waterfall/lib/waterfall'
-import WaterfallSlot from 'vue-waterfall/lib/waterfall-slot'
+// import Waterfall from 'vue-waterfall/lib/waterfall';
+// import WaterfallSlot from 'vue-waterfall/lib/waterfall-slot';
 
 export default {
   name: 'Bike',
-  data () {
+  components: {
+    // Waterfall,
+    // WaterfallSlot
+  },
+  data() {
     return {
       data: {
         name: 'bike',
@@ -75,12 +82,11 @@ export default {
       lists: []
     }
   },
-  components: {
-    Waterfall,
-    WaterfallSlot
+  mounted() {
+    this.mockInfo()
   },
   methods: {
-    mockInfo () {
+    mockInfo() {
       this.$store
         .dispatch('getBikeTotal')
         .then(res => {
@@ -89,12 +95,9 @@ export default {
         })
         .catch(err => console.log(err))
     },
-    handleChange (val) {
+    handleChange(val) {
       console.log(val)
     }
-  },
-  mounted () {
-    this.mockInfo()
   }
 }
 </script>
@@ -130,7 +133,7 @@ export default {
     display: inline-block;
     overflow: hidden;
     // border: 1px solid #000;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
     &:hover {
       box-shadow: 0 0 10px #ccc;
     }
@@ -146,8 +149,8 @@ export default {
       }
     }
     div.el-collapse-item__content {
-      padding-bottom: 0!important;
-      &>div {
+      padding-bottom: 0 !important;
+      & > div {
         height: 48px;
         line-height: 48px;
         border-top: 1px solid #ebeef5;

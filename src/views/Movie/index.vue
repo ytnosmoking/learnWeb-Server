@@ -1,31 +1,32 @@
 <template>
   <div class="movies">
     <div class="head">
-      <h3>{{movies.title}}</h3>
-      <i>{{movies.count}}</i>
+      <h3>{{ movies.title }}</h3>
+      <i>{{ movies.count }}</i>
     </div>
-
     <ul>
       <!-- <li v-for="(movie,index) in movies.subjects" :key="index" :class="'item'+(index+1)"> -->
-        <router-link :to="{name: '电影详情', query:{movie:movie.id}}"
-          tag="li" v-for="movie in movies.subjects" :key="movie.id">
+      <router-link
+        v-for="movie in movies.subjects"
+        :to="{name: '电影详情', query:{movie:movie.id}}"
+        :key="movie.id"
+        tag="li">
         <!-- <a :href="movie.alt"> -->
-          <div class="imgBd">
-            <img v-lazy="movie.images.large" alt="">
-          </div>
-          <div class="content">
+        <div class="imgBd">
+          <img v-lazy="movie.images.large" alt="">
+        </div>
+        <div class="content">
+          <div class="clearfix">
+            <h5 class="fl">{{ movie.title }}</h5>
+            <span class="fr">{{ movie.year }}</span>
             <div class="clearfix">
-              <h5 class="fl">{{movie.title}}</h5>
-              <span class="fr">{{movie.year}}</span>
-              <div class="clearfix">
-                <span class="fl" v-for="(gen,genIndex) in movie.genres" :key="genIndex">{{genIndex===0?'':','}}{{gen}}</span>
-              </div>
-
+              <span v-for="(gen,genIndex) in movie.genres" :key="genIndex" class="fl">{{ genIndex===0?'':',' }}{{ gen }}</span>
             </div>
 
-            <el-rate v-model="movie.rating.average" :max="10" disabled show-score text-color="#ff9900" score-template="{value}">
-            </el-rate>
           </div>
+
+          <el-rate v-model="movie.rating.average" :max="10" disabled show-score text-color="#ff9900" score-template="{value}"/>
+        </div>
         <!-- </a> -->
       </router-link>
       <!-- </li> -->
@@ -36,14 +37,17 @@
 <script>
 export default {
   name: 'MovieIndex',
-  data () {
+  data() {
     return {
       value5: 4,
       movies: {}
     }
   },
+  mounted() {
+    this.getTotalMovie()
+  },
   methods: {
-    getTotalMovie () {
+    getTotalMovie() {
       this.$store.dispatch('getTotalMovie').then(res => {
         res.subjects.filter(movie => {
           return movie.rating.average / 2
@@ -51,12 +55,9 @@ export default {
         this.movies = res
       })
     },
-    getWeahther () {
+    getWeahther() {
       this.$store.dispatch('getWeather', { cityname: '武汉' })
     }
-  },
-  mounted () {
-    this.getTotalMovie()
   }
 }
 </script>
@@ -80,7 +81,7 @@ export default {
 }
 ul {
   height: calc(100% - 60px);
-   overflow: hidden;
+  overflow: hidden;
   overflow-y: auto;
   display: grid;
   grid-template-columns: 20% 20% 20% 20% 20%;
@@ -107,7 +108,7 @@ ul {
       img {
         width: 100%;
         height: 100%;
-        transition: all .3s ease;
+        transition: all 0.3s ease;
         &:hover {
           transform: scale(1.1);
         }

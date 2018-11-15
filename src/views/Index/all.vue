@@ -1,15 +1,14 @@
 <template>
- <div>
-   <h3> {{data.msg}}</h3>
+  <div>
+    <h3> {{ data.msg }}</h3>
 
- </div>
+  </div>
 </template>
 
 <script>
-
 export default {
-  name: 'Index-All',
-  data () {
+  name: 'IndexAll',
+  data() {
     return {
       data: {
         name: 'index',
@@ -17,15 +16,10 @@ export default {
       }
     }
   },
-  methods: {
-
-  },
-  mounted () {
-
-  }
+  mounted() {},
+  methods: {}
 }
 </script>
 
 <style lang='less' scoped>
-
 </style>
