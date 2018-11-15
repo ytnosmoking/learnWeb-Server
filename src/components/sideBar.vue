@@ -7,7 +7,7 @@
 
             <i :class="'el-icon-'+routes.meta.icon"/>
             &nbsp;&nbsp;
-            <i v-show="!getSideBar" style="font-style:normal;">{{ routes.name }}</i>
+            <i v-show="getSideBar" style="font-style:normal;">{{ routes.name }}</i>
           </router-link>
         </el-tooltip>
       </li>

@@ -5,7 +5,12 @@
       :key="router.name"
       :to="{&quot;path&quot;:router.path }"
       class="navLi"
-      tag="li">{{ router.name }}</router-link>
+      tag="li">
+      <el-tooltip :content="router.name" placement="bottom">
+        <i>{{ router.name }}</i>
+
+      </el-tooltip>
+    </router-link>
   </ul>
 </template>
 
@@ -72,6 +77,13 @@ ul {
   }
   &:hover ~ &::before {
     left: 0;
+  }
+  i {
+    display: block;
+    height: 100%;
+    font-style: normal;
+    position: relative;
+    z-index: 2;
   }
 }
 </style>
