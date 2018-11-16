@@ -22,6 +22,7 @@ import VueLazyLoad from 'vue-lazyload'
 import './Mock' // mock数据
 import './permmison'
 
+import './icons'
 // import {
 //   getToken
 // } from '@/utils/tools'

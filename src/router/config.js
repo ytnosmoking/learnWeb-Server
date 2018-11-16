@@ -8,17 +8,23 @@ export const configRouter = [
     name: '首页',
     component: _importCom('layOut'),
     meta: {
-      icon: 'info'
+      icon: 'index'
     },
     redirect: '/index/all',
     children: [{
       name: '所有',
       path: '/index/all',
-      component: _importView('Index/all')
+      component: _importView('Index/all'),
+      meta: {
+        icon: 'index'
+      }
     }, {
       name: '其他',
       path: '/index/other',
-      component: _importView('Index/other')
+      component: _importView('Index/other'),
+      meta: {
+        icon: 'index'
+      }
     }]
   },
   {
@@ -27,16 +33,22 @@ export const configRouter = [
     component: _importCom('layOut'),
     redirect: '/bike/index',
     meta: {
-      icon: 'warning'
+      icon: 'bike'
     },
     children: [{
       name: '单车首页',
       path: '/bike/index',
-      component: _importView('Bike/index')
+      component: _importView('Bike/index'),
+      meta: {
+        icon: 'bike'
+      }
     }, {
       name: '产品',
       path: '/bike/product',
-      component: _importView('Bike/product')
+      component: _importView('Bike/product'),
+      meta: {
+        icon: 'bike'
+      }
       // children: [
       //   {
       //     name: '产品1',
@@ -57,7 +69,10 @@ export const configRouter = [
     }, {
       name: '详细信息',
       path: '/bike/detail',
-      component: _importView('Bike/detail')
+      component: _importView('Bike/detail'),
+      meta: {
+        icon: 'bike'
+      }
     }]
   },
   {
@@ -66,7 +81,7 @@ export const configRouter = [
     component: _importCom('layOut'),
     redirect: '/films/index',
     meta: {
-      icon: 'menu'
+      icon: 'film'
     },
     children: [{
       name: '上映',
@@ -90,12 +105,26 @@ export const configRouter = [
     component: _importCom('layOut'),
     redirect: '/shape/index',
     meta: {
-      icon: 'picture'
+      icon: 'charts'
     },
     children: [{
       name: '各种图形',
       path: '/shape/index',
       component: _importView('Shape/index')
+    }]
+  },
+  {
+    path: '/table',
+    name: '表格',
+    component: _importCom('layOut'),
+    redirect: '/table/index',
+    meta: {
+      icon: 'table'
+    },
+    children: [{
+      name: '表格首页',
+      path: '/table/index',
+      component: _importView('Table/index')
     }]
   }
 ]
