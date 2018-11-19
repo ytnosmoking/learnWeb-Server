@@ -25,7 +25,8 @@
               <el-dropdown @command="userSet">
                 <span class="el-dropdown-link">
                   <!-- <i class="el-icon-arrow-down el-icon--right"></i> -->
-                  <img v-lazy="'http://localhost:3000/static/images/5beabb2535278719563f90dctask1.png'" class="userImg" alt="">
+                  <!-- <img v-lazy="'http://localhost:3000/static/images/5beabb2535278719563f90dctask1.png'" class="userImg" alt=""> -->
+                  <svg-icon icon-class="userset" class="userImg"/>
                   <!-- <i class="el-icon-setting el-icon--right"></i> -->
                 </span>
                 <el-dropdown-menu slot="dropdown">

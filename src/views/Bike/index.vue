@@ -6,16 +6,22 @@
     </div>
 
     <ul class="clearfix bikeCont">
-      <router-link
+      <!-- <router-link
         v-for="list in lists"
         :to="{'name': '详细信息', query:{productId: list.id}}"
         :key="list.id"
         tag="li"
         class="fl"
-      >
-        <!-- <li v-for="(list, index) in lists" :key="index" class="fl"> -->
-        <img v-lazy="list.img" alt="">
-        <el-collapse @change="handleChange">
+      > -->
+      <li
+        v-for="(list, index) in lists"
+        :key="index"
+        class="fl">
+        <router-link
+          :to="{'name': '详细信息', query:{productId: list.id}}">
+          <img v-lazy="list.img" alt="">
+        </router-link>
+        <el-collapse accordion @change="handleChange">
           <el-collapse-item title="Name">
             <div>first === {{ list.first }}</div>
             <div>last === {{ list.last }}</div>
@@ -56,8 +62,7 @@
             </dl>
           </el-collapse-item>
         </el-collapse>
-      <!-- </li> -->
-      </router-link>
+      </li>
     </ul>
 
   </div>

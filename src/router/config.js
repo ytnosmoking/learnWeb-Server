@@ -125,6 +125,43 @@ export const configRouter = [
       name: '表格首页',
       path: '/table/index',
       component: _importView('Table/index')
+    }, {
+      name: '复杂表格',
+      path: '/table/others',
+      component: _importView('Table/others')
+    },
+    {
+      name: '自定义表格',
+      path: '/table/self',
+      component: _importView('Table/self')
+    },
+    {
+      name: '合并表格',
+      path: '/table/connect',
+      component: _importView('Table/connect')
+    }
+    ]
+  },
+  {
+    path: '/time',
+    name: '时间',
+    component: _importCom('layOut'),
+    redirect: '/time/index',
+    meta: {
+      icon: 'time'
+    },
+    children: [{
+      path: '/time/index',
+      name: '时间选择',
+      component: _importView('Time/index')
+    }, {
+      path: '/time/tags',
+      name: '标签',
+      component: _importView('Time/tags')
+    }, {
+      path: '/time/collapse',
+      name: '折叠面板',
+      component: _importView('Time/collapse')
     }]
   }
 ]
