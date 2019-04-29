@@ -15,13 +15,19 @@ module.exports = {
     libraryTarget: 'commonjs2'
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.css$/,
         use: [
           'vue-style-loader',
           'css-loader'
         ]
+      },
+      {
+        //将css文件匹配到先解析css 再将css插入到style中，写法从右往左写
+        test: /\.less$/,
+        //包依赖
+        use: ['vue-style-loader', 'style-loader', 'css-loader', 'less-loader'],
+        exclude: /node_modules/
       },
       {
         test: /\.vue$/,

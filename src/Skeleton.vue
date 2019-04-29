@@ -1,12 +1,14 @@
 <template>
   <div class="skeleton page">
-    <div class="skeleton-nav"></div>
-    <div class="skeleton-swiper"></div>
+    <div class="skeleton-nav"/>
+    <div class="skeleton-swiper"/>
     <ul class="skeleton-tabs">
-      <li v-for="i in 8" class="skeleton-tabs-item"><span></span></li>
+      <li v-for="i in 8" class="skeleton-tabs-item">
+        <span/>
+      </li>
     </ul>
-    <div class="skeleton-banner"></div>
-    <div v-for="i in 6" class="skeleton-productions"></div>
+    <div class="skeleton-banner"/>
+    <div v-for="i in 6" class="skeleton-productions"/>
   </div>
 </template>
 

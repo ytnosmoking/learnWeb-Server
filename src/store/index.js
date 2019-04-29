@@ -83,7 +83,8 @@ const store = new Vuex.Store({
     getProductDetail(context, payload) {
       console.log(payload)
       return new Promise((resolve, reject) => {
-        sendAjax('/bike/detail', { ...payload
+        sendAjax('/bike/detail', {
+          ...payload
         })
           .then(res => resolve(res))
           .catch(err => reject(err))
@@ -136,27 +137,15 @@ const store = new Vuex.Store({
     },
     addGoods() {
       return new Promise((resolve, reject) => {
-        // Promise.all([
-        //   sendAjax(
-        //     '/local/detail?detail=' + Math.ceil(Math.random() * 100), {},
-        //     'get'
-        //   ),
-        //   sendAjax('/local/goods/' + Math.ceil(Math.random() * 2000))
-        // ]).then(param1 => {
-        //   console.log(`param1===${JSON.stringify(param1)}`)
-        // })
         sendAjax('/local/addGoods')
           .then(res => resolve(res))
           .catch(err => reject(err))
       })
     },
-    getGoods(context, payload) {
-      return new Promise((resolve, reject) => {
-        console.log(payload)
-        sendAjax('/local/getGoods', payload)
-          .then(res => resolve(res))
-          .catch(err => reject(err))
-      })
+    async getGoods(context, payload) {
+      const res = await sendAjax('/local/getGoods', payload)
+      console.log('await---')
+      return res
     },
     delGood(context, payload) {
       return new Promise((resolve, reject) => {
@@ -171,6 +160,17 @@ const store = new Vuex.Store({
           .then(res => resolve(res))
           .catch(err => reject(err))
       })
+    },
+    testUrl(context, payload) {
+      const params = {
+        password: '12',
+        userName: '32'
+      }
+      sendAjax('/testUrl/login', params)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => console.log(err))
     }
   }
 })

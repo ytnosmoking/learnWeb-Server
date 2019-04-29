@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h3> {{ data.msg }}</h3>
-
+    <h3>{{ data.msg }}</h3>
+    <button @click="clickTest">123123123123</button>
   </div>
 </template>
 
@@ -17,7 +17,11 @@ export default {
     }
   },
   mounted() {},
-  methods: {}
+  methods: {
+    clickTest() {
+      this.$store.dispatch('testUrl')
+    }
+  }
 }
 </script>
 

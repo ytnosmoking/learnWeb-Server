@@ -5,6 +5,7 @@ import {
 } from 'element-ui'
 // import store from '@/store'
 
+// const testUrl = 'http://62.234.117.51:9021'
 const BASE_URL = process.env.NODE_ENV === 'production'
   ? 'http://test.fqweb.pms.efanghang.com' : ''
 

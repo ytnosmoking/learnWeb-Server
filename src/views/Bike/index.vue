@@ -2,7 +2,7 @@
   <div class="cont">
     <div class="title">
       MOCK INFO &nbsp;
-      <el-button primary @click="mockInfo"> MOCK INFO </el-button>
+      <el-button primary @click="mockInfo">MOCK INFO</el-button>
     </div>
 
     <ul class="clearfix bikeCont">
@@ -12,14 +12,10 @@
         :key="list.id"
         tag="li"
         class="fl"
-      > -->
-      <li
-        v-for="(list, index) in lists"
-        :key="index"
-        class="fl">
-        <router-link
-          :to="{'name': '详细信息', query:{productId: list.id}}">
-          <img v-lazy="list.img" alt="">
+      >-->
+      <li v-for="(list, index) in lists" :key="index" class="fl">
+        <router-link :to="{'name': '详细信息', query:{productId: list.id}}">
+          <img v-lazy="list.img" alt>
         </router-link>
         <el-collapse accordion @change="handleChange">
           <el-collapse-item title="Name">
@@ -64,19 +60,20 @@
         </el-collapse>
       </li>
     </ul>
-
   </div>
 </template>
 
 <script>
-// import Waterfall from 'vue-waterfall/lib/waterfall';
-// import WaterfallSlot from 'vue-waterfall/lib/waterfall-slot';
+// eslint-disable-next-line
+import Waterfall from "vue-waterfall/lib/waterfall";
+// eslint-disable-next-line
+import WaterfallSlot from "vue-waterfall/lib/waterfall-slot";
 
 export default {
   name: 'Bike',
   components: {
-    // Waterfall,
-    // WaterfallSlot
+    Waterfall,
+    WaterfallSlot
   },
   data() {
     return {

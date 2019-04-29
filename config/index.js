@@ -54,6 +54,13 @@ module.exports = {
         pathRewrite: {
           '^/upload': ''
         }
+      },
+      '/testUrl': {
+        target: 'http://62.234.117.51:9021',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/testUrl': ''
+        }
       }
     },
 

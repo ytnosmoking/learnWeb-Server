@@ -12,15 +12,21 @@
             <el-radio v-model="body.sex" label="0">女</el-radio> <br>
       star：<el-input-number v-model="body.star"  :min="0" :max="5000" label="star"></el-input-number><br>
       money$: <el-input-number v-model="body.money"  :min="0" :max="5000" label="money"></el-input-number><br>
-   </div> -->
-    <el-form :model="form" label-width="60px" label-position="left" size="small" style="width:300px">
+    </div>-->
+    <el-form
+      :model="form"
+      label-width="60px"
+      label-position="left"
+      size="small"
+      style="width:300px"
+    >
       <el-form-item label="姓名">
         <el-input v-model="form.name"/>
       </el-form-item>
       <el-form-item label="性别" prop="sex">
         <el-radio-group v-model="form.sex">
-          <el-radio label="1" >男</el-radio>
-          <el-radio label="0" >女</el-radio>
+          <el-radio label="1">男</el-radio>
+          <el-radio label="0">女</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="star">
@@ -28,37 +34,39 @@
           :max="10"
           :icon-classes="['el-icon-web-lessmoney', 'el-icon-web-littlemoney', 'el-icon-web-somemoney']"
           v-model="form.star"
-          void-icon-class="el-icon-web-lessmoney"/>
-          <!-- <el-input-number v-model="form.star"  :min="0" :max="5000" ></el-input-number> -->
+          void-icon-class="el-icon-web-lessmoney"
+        />
+        <!-- <el-input-number v-model="form.star"  :min="0" :max="5000" ></el-input-number> -->
       </el-form-item>
       <el-form-item label="money">
         <!-- <el-input-number v-model="form.money"  :min="0" :max="5000"></el-input-number> -->
-        <el-slider
-          v-model="form.money"
-          :max="50"
-          show-input
-          input-size="mini"
-        />
+        <el-slider v-model="form.money" :max="50" show-input input-size="mini"/>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="getGoods">查询</el-button>
       </el-form-item>
     </el-form>
 
-    <div style="margin-bottom:20px;"> 查询结果数据 <el-button>{{ goods.length }}</el-button> </div>
+    <div style="margin-bottom:20px;">
+      查询结果数据
+      <el-button>{{ goods.length }}</el-button>
+    </div>
     <ul v-show="goods.length!=0">
-      <li
-        v-for="(good, index) in goods"
-        :key="good._id"
-        class="fl">
-        <el-form :model="good" label-width="60px" label-position="left" size="small" style="width:200px">
+      <li v-for="(good, index) in goods" :key="good._id" class="fl">
+        <el-form
+          :model="good"
+          label-width="60px"
+          label-position="left"
+          size="small"
+          style="width:200px"
+        >
           <el-form-item label="姓名">
             <el-input v-model="good.name"/>
           </el-form-item>
           <el-form-item label="性别" prop="sex">
             <el-radio-group v-model="good.sex">
-              <el-radio label="1" >男</el-radio>
-              <el-radio label="0" >女</el-radio>
+              <el-radio label="1">男</el-radio>
+              <el-radio label="0">女</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="star">
@@ -66,8 +74,8 @@
               :max="10"
               :icon-classes="['el-icon-web-lessmoney', 'el-icon-web-littlemoney', 'el-icon-web-somemoney']"
               v-model="good.star"
-
-              void-icon-class="el-icon-web-lessmoney"/>
+              void-icon-class="el-icon-web-lessmoney"
+            />
           </el-form-item>
           <el-form-item label="money">
             <el-slider v-model="good.money" :max="50"/>
@@ -82,8 +90,9 @@
               :show-file-list="false"
               class="upload-demo"
               action="/upload/single"
-              list-type="picture">
-              <img v-if="good.url" :src="'http://localhost:3000/'+good.url" alt="">
+              list-type="picture"
+            >
+              <img v-if="good.url" :src="'http://localhost:3000/'+good.url" alt>
               <i v-else class="el-icon-plus avatar-uploader-icon"/>
             </el-upload>
           </el-form-item>
@@ -96,6 +105,8 @@
 </template>
 
 <script>
+// eslint-disable-next-line
+import { mapActions } from "vuex";
 export default {
   name: 'Top100',
   data() {
@@ -111,48 +122,43 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      getAllGoods: 'getGoods'
+    }),
     // 增加
-    addGoods() {
-      this.$store.dispatch('addGoods').then(res => {
+    async addGoods() {
+      const res = await this.$store.dispatch('addGoods')
+      if (res) {
         const h = this.$createElement
         this.$notify({
           title: '消息提示',
           message: h('i', { style: 'color: teal' }, res.result.msg)
         })
-      })
+      }
     },
     // 查
-    getGoods() {
-      // const name = this.name
-      console.log(this.form)
+    async getGoods() {
       const params = {}
-      for (const key in this.form) {
-        if (this.form[key]) {
-          params[key] = this.form[key]
-        }
-      }
-      this.$store.dispatch('getGoods', params).then(res => {
-        console.log(res)
-        this.goods = res
-      })
+      Object.keys(this.form).map(key =>
+        this.form[key] ? (params[key] = this.form[key]) : ''
+      )
+      const res = await this.getAllGoods(params)
+
+      this.goods = res
     },
     // 删除
-    delGood(good, index) {
-      console.log(good)
-
-      this.$store.dispatch('delGood', good).then(res => {
-        console.log(res)
-        if (res.n === 1) {
-          this.goods.splice(index, 1)
-        }
-      })
+    async delGood(good, index) {
+      const res = await this.$store.dispatch('delGood', good)
+      if (res.n === 1) {
+        this.goods.splice(index, 1)
+      }
     },
     // 更改
-    updateGood(good) {
-      console.log(good)
-      this.$store.dispatch('updateGood', good).then(res => {
-        console.log(res)
-      })
+    async updateGood(good) {
+      await this.$store.dispatch('updateGood', good)
+      // this.$store.dispatch('updateGood', good).then(res => {
+      //   console.log(res)
+      // })
     },
     // upload
     handleRemove(file, fileList) {
