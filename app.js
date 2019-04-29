@@ -4,6 +4,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
+// const loginRouter = require('./routes/login')
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const localRouter = require("./routes/local");
@@ -34,6 +35,7 @@ app.use(
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// app.use('/login', loginRouter) // 登陆  路由
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/local", localRouter);

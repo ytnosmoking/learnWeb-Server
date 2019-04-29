@@ -41,8 +41,12 @@ router.post('/getGoods', (req, res, next) => {
 
 router.post('/delGood', (req, res, next) => {
   User.deleteOne(req.body, (err, result) => {
+
     if (err) throw err;
-    fs.unlinkSync(req.body.url) // 删除图像问价
+    if (req.body.url) {
+      fs.unlinkSync(req.body.url) // 删除图像文件
+    }
+
     res.send(result)
   })
 })

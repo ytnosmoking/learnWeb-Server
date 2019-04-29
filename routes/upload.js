@@ -6,10 +6,7 @@ const fs = require('fs')
 
 
 router.post('/single', multipartyMiddleware, (req, res) => {
-  // console.log(req)
-  // console.log(req.file);
   if (req.files) {
-
     const srcUrl = req.files.file.path.split("/")
     srcUrl[1] = req.body.id + req.files.file.originalFilename
     // console.log(srcUrl)
